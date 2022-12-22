@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "aquerydiff_lib",
+    srcs = [
+        "config.go",
+        "main.go",
+    ],
+    importpath = "github.com/stackb/bazel-aquery-differ/cmd/aquerydiff",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//pkg/protobuf",
+        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
+    ],
+)
+
+go_binary(
+    name = "aquerydiff",
+    embed = [":aquerydiff_lib"],
+    visibility = ["//visibility:public"],
+)
