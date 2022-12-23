@@ -4,6 +4,7 @@ import (
 	"sort"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
+	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
 )
 
 // actionGraph holds compiled data about the action graph container
@@ -13,7 +14,7 @@ type actionGraph struct {
 	targets         targetMap
 	depSetOfFiles   depSetOfFilesMap
 	depSetResolver  depSetResolver
-	actions         []*Action
+	actions         []*dipb.Action
 	actionOutputMap actionOutputMap
 }
 
@@ -27,7 +28,7 @@ func newActionGraph(container *anpb.ActionGraphContainer) (*actionGraph, error) 
 	depSetOfFiles := newDepSetOfFilesMap(container.DepSetOfFiles)
 	depSetResolver := newDepSetResolver(artifacts, depSetOfFiles)
 
-	actions := make([]*Action, len(container.Actions))
+	actions := make([]*dipb.Action, len(container.Actions))
 	for i, a := range container.Actions {
 		action, err := newAction(a, artifacts, targets, *depSetResolver)
 		if err != nil {

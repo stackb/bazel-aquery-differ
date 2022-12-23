@@ -19,10 +19,12 @@ go_library(
     importpath = "github.com/stackb/bazel-aquery-differ/cmd/aquerydiff",
     visibility = ["//visibility:private"],
     deps = [
+        "//build/stack/bazel/aquery/differ:differ_go_proto",
         "//pkg/protobuf",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
         "@com_github_google_go_cmp//cmp",
         "@com_github_google_go_cmp//cmp/cmpopts",
+        "@com_github_pmezard_go_difflib//difflib",
     ],
 )
 

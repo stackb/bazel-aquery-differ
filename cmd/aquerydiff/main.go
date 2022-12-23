@@ -66,7 +66,7 @@ func run(args []string) error {
 		log.Println("only in --after:", v.output)
 	}
 	for _, v := range both {
-		log.Printf("action outputs present in both: %s\n%s", v.output, v.diff())
+		log.Printf("action outputs present in both: %s\n%s", v.output, v.unifiedDiff(config.beforeFile, config.afterFile))
 	}
 
 	return nil

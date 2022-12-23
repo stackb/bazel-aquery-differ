@@ -8,3 +8,10 @@ def go_repositories():
         sum = "h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=",
         version = "v0.5.9",
     )
+    go_repository(
+        name = "com_github_pmezard_go_difflib",
+        build_file_proto_mode = "disable_global",
+        importpath = "github.com/pmezard/go-difflib",
+        sum = "h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=",
+        version = "v1.0.0",
+    )

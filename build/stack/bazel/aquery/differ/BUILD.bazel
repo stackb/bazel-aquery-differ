@@ -1,0 +1,50 @@
+load("@build_stack_rules_proto//rules/go:proto_go_library.bzl", "proto_go_library")
+load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
+load("@build_stack_rules_proto//rules:proto_compiled_sources.bzl", "proto_compiled_sources")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+# gazelle:proto_language go enabled true
+
+proto_library(
+    name = "differ_proto",
+    srcs = ["action.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["@bazelapis//src/main/protobuf:analysis_v2_proto"],
+)
+
+proto_compile(
+    name = "differ_go_compile",
+    options = {"@build_stack_rules_proto//plugin/golang/protobuf:protoc-gen-go": [
+        "Msrc/main/protobuf/analysis_v2.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2",
+        "Msrc/main/protobuf/build.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/build",
+    ]},
+    output_mappings = ["action.pb.go=github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ/action.pb.go"],
+    outputs = ["action.pb.go"],
+    plugins = ["@build_stack_rules_proto//plugin/golang/protobuf:protoc-gen-go"],
+    proto = "differ_proto",
+    visibility = ["//visibility:public"],
+)
+
+proto_compiled_sources(
+    name = "differ_go_compiled_sources",
+    srcs = ["action.pb.go"],
+    options = {"@build_stack_rules_proto//plugin/golang/protobuf:protoc-gen-go": [
+        "Msrc/main/protobuf/analysis_v2.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2",
+        "Msrc/main/protobuf/build.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/build",
+    ]},
+    output_mappings = ["action.pb.go=github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ/action.pb.go"],
+    plugins = ["@build_stack_rules_proto//plugin/golang/protobuf:protoc-gen-go"],
+    proto = "differ_proto",
+)
+
+proto_go_library(
+    name = "differ_go_proto",
+    srcs = ["action.pb.go"],
+    importpath = "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+        "@org_golang_google_protobuf//runtime/protoimpl",
+    ],
+)
