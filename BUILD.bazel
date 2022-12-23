@@ -14,7 +14,6 @@ load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
 
 # -- Gazelle language "protobuf" ---
 # gazelle:proto_rule proto_compile implementation stackb:rules_proto:proto_compile
-# gazelle:proto_rule proto_compiled_sources implementation stackb:rules_proto:proto_compiled_sources
 
 # gazelle:proto_plugin protoc-gen-go implementation golang:protobuf:protoc-gen-go
 # gazelle:proto_plugin protoc-gen-go-grpc implementation grpc:grpc-go:protoc-gen-go-grpc
@@ -27,7 +26,7 @@ load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
 # gazelle:proto_rule proto_go_library visibility //visibility:public
 # gazelle:proto_language go plugin protoc-gen-go
 # gazelle:proto_language go plugin protoc-gen-go-grpc
-# gazelle:proto_language go rule proto_compiled_sources
+# gazelle:proto_language go rule proto_compile
 
 load("@build_stack_rules_proto//rules:proto_gazelle.bzl", "DEFAULT_LANGUAGES", "proto_gazelle")
 
