@@ -7,7 +7,6 @@ go_library(
         "action_graph.go",
         "action_output_map.go",
         "action_output_pair.go",
-        # "action_pair.go",
         "artifact_path_map.go",
         "config.go",
         "dep_set_of_files_map.go",
@@ -31,5 +30,71 @@ go_library(
 go_binary(
     name = "aquerydiff",
     embed = [":aquerydiff_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "aquerydiff_darwin_amd64",
+    embed = [":aquerydiff_lib"],
+    gc_linkopts = [
+        "-s",
+        "-w",
+    ],
+    goarch = "amd64",
+    goos = "darwin",
+    pure = "on",
+    static = "on",
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "aquerydiff_darwin_arm64",
+    embed = [":aquerydiff_lib"],
+    gc_linkopts = [
+        "-s",
+        "-w",
+    ],
+    goarch = "arm64",
+    goos = "darwin",
+    pure = "on",
+    static = "on",
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "aquerydiff_linux_amd64",
+    embed = [":aquerydiff_lib"],
+    gc_linkopts = [
+        "-s",
+        "-w",
+    ],
+    goarch = "amd64",
+    goos = "linux",
+    pure = "on",
+    static = "on",
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "aquerydiff_linux_arm64",
+    embed = [":aquerydiff_lib"],
+    gc_linkopts = [
+        "-s",
+        "-w",
+    ],
+    goarch = "arm64",
+    goos = "linux",
+    pure = "on",
+    static = "on",
+    visibility = ["//visibility:public"],
+)
+
+go_binary(
+    name = "aquerydiff_windows_amd64",
+    embed = [":aquerydiff_lib"],
+    goarch = "amd64",
+    goos = "windows",
+    pure = "on",
+    static = "on",
     visibility = ["//visibility:public"],
 )
