@@ -1,0 +1,70 @@
+# Cut a release whenever a new tag is pushed to the repo.
+# You should use an annotated tag, like `git tag -a v1.2.3`
+# and put the release notes into the commit message for the tag.
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set output
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Mount bazel action cache
+        uses: actions/cache@v3
+        if: always()
+        with:
+          path: "~/.cache/bazel"
+          key: bazel
+
+      - name: Mount bazel repo cache
+        uses: actions/cache@v3
+        if: always()
+        with:
+          path: "~/.cache/bazel-repo"
+          key: bazel-repo
+
+      - name: build release binaries
+        env:
+          # Bazelisk will download bazel to here
+          XDG_CACHE_HOME: ~/.cache/bazel-repo
+        run: >-
+          bazel
+          --bazelrc=.github/workflows/ci.bazelrc
+          --bazelrc=.bazelrc
+          build
+          //cmd/aquerydiff:all
+
+      - name: Prepare release assets
+        env:
+          # Bazelisk will download bazel to here
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: >-
+          cp bazel-bin/cmd/aquerydiff/aquerydiff_darwin_amd64.zip aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip &&
+          cp bazel-bin/cmd/aquerydiff/aquerydiff_darwin_arm64.zip aquerydiff_darwin_arm64.${{ env.RELEASE_VERSION }}.zip &&
+          cp bazel-bin/cmd/aquerydiff/aquerydiff_linux_amd64.zip aquerydiff_linux_amd64.${{ env.RELEASE_VERSION }}.zip &&
+          cp bazel-bin/cmd/aquerydiff/aquerydiff_linux_arm64.zip aquerydiff_linux_arm64.${{ env.RELEASE_VERSION }}.zip &&
+          cp bazel-bin/cmd/aquerydiff/aquerydiff_windows_amd64.zip aquerydiff_windows_amd64.${{ env.RELEASE_VERSION }}.zip &&
+          echo "done"
+
+      - name: Release
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: bazel-bin/java/com/google/testing/coverage/release_notes.md
+          files: |
+            aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip
+            aquerydiff_darwin_arm64.${{ env.RELEASE_VERSION }}.zip
+            aquerydiff_linux_amd64.${{ env.RELEASE_VERSION }}.zip
+            aquerydiff_linux_arm64.${{ env.RELEASE_VERSION }}.zip
+            aquerydiff_windows_amd64.${{ env.RELEASE_VERSION }}.zip

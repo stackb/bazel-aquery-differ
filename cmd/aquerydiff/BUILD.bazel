@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load(":platforms.bzl", "platforms")
 
 go_library(
     name = "aquerydiff_lib",
@@ -33,68 +34,46 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
-go_binary(
-    name = "aquerydiff_darwin_amd64",
-    embed = [":aquerydiff_lib"],
-    gc_linkopts = [
-        "-s",
-        "-w",
-    ],
-    goarch = "amd64",
-    goos = "darwin",
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
+[
+    go_binary(
+        name = "aquerydiff_%s_%s" % (
+            platform.os,
+            platform.arch,
+        ),
+        embed = [":aquerydiff_lib"],
+        gc_linkopts = platform.gc_linkopts,
+        goarch = platform.arch,
+        goos = platform.os,
+        pure = "on",
+        static = "on",
+        visibility = ["//visibility:public"],
+    )
+    for platform in platforms
+]
 
-go_binary(
-    name = "aquerydiff_darwin_arm64",
-    embed = [":aquerydiff_lib"],
-    gc_linkopts = [
-        "-s",
-        "-w",
-    ],
-    goarch = "arm64",
-    goos = "darwin",
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
-
-go_binary(
-    name = "aquerydiff_linux_amd64",
-    embed = [":aquerydiff_lib"],
-    gc_linkopts = [
-        "-s",
-        "-w",
-    ],
-    goarch = "amd64",
-    goos = "linux",
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
-
-go_binary(
-    name = "aquerydiff_linux_arm64",
-    embed = [":aquerydiff_lib"],
-    gc_linkopts = [
-        "-s",
-        "-w",
-    ],
-    goarch = "arm64",
-    goos = "linux",
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
-
-go_binary(
-    name = "aquerydiff_windows_amd64",
-    embed = [":aquerydiff_lib"],
-    goarch = "amd64",
-    goos = "windows",
-    pure = "on",
-    static = "on",
-    visibility = ["//visibility:public"],
-)
+[
+    genrule(
+        name = "aquerydiff_%s_%s_zip" % (
+            platform.os,
+            platform.arch,
+        ),
+        srcs = ["aquerydiff_%s_%s" % (
+            platform.os,
+            platform.arch,
+        )],
+        outs = ["aquerydiff_%s_%s.zip" % (
+            platform.os,
+            platform.arch,
+        )],
+        cmd = """
+    cp $(location aquerydiff_{os}_{arch}) aquerydiff
+    $(location @bazel_tools//tools/zip:zipper) c $@ aquerydiff
+    """.format(
+            arch = platform.arch,
+            os = platform.os,
+        ),
+        tools = ["@bazel_tools//tools/zip:zipper"],
+        visibility = ["//visibility:public"],
+    )
+    for platform in platforms
+]
