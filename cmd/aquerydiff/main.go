@@ -48,5 +48,26 @@ func run(args []string) error {
 
 	log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
 
+	beforeGraph, err := newActionGraph(&before)
+	if err != nil {
+		return err
+	}
+	afterGraph, err := newActionGraph(&after)
+	if err != nil {
+		return err
+	}
+
+	beforeOnly, afterOnly, both := partitionGraphs(beforeGraph.actionOutputMap, afterGraph.actionOutputMap)
+
+	for _, v := range beforeOnly {
+		log.Println("only in --before:", v.output)
+	}
+	for _, v := range afterOnly {
+		log.Println("only in --after:", v.output)
+	}
+	for _, v := range both {
+		log.Printf("action outputs present in both: %s\n%s", v.output, v.diff())
+	}
+
 	return nil
 }
