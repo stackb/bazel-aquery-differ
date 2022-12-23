@@ -61,7 +61,6 @@ jobs:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         uses: softprops/action-gh-release@v1
         with:
-          body_path: bazel-bin/java/com/google/testing/coverage/release_notes.md
           files: |
             aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip
             aquerydiff_darwin_arm64.${{ env.RELEASE_VERSION }}.zip
