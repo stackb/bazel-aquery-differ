@@ -1,0 +1,5 @@
+# gazelle:exclude generation_test.go
+
+exports_files([
+    "generation_test.go",
+])
