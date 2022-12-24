@@ -94,7 +94,7 @@ func TestPathMap(t *testing.T) {
 				t.Fatal(err)
 			}
 			if diff := cmp.Diff(tc.want, got); diff != "" {
-				t.Error("(-want,+got): %s", diff)
+				t.Errorf("(-want,+got): %s", diff)
 			}
 		})
 	}

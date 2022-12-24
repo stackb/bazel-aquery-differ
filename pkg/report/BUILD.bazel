@@ -1,9 +1,20 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "report",
-    srcs = ["html.go"],
+    srcs = [
+        "assets.go",
+        "html.go",
+    ],
+    embedsrcs = ["index.html.tmpl"],
     importpath = "github.com/stackb/bazel-aquery-differ/pkg/report",
     visibility = ["//visibility:public"],
     deps = ["//pkg/action"],
+)
+
+go_test(
+    name = "report_test",
+    srcs = ["html_test.go"],
+    embed = [":report"],
+    deps = ["@com_github_google_go_cmp//cmp"],
 )

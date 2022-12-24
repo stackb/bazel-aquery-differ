@@ -81,7 +81,15 @@ func run(args []string) error {
 	}
 
 	if config.reportDir != "" {
-		if err := generateReport(beforeOnly, afterOnly, same, different, config.reportDir); err != nil {
+		if err := generateReport(
+			config.beforeFile,
+			config.afterFile,
+			beforeOnly,
+			afterOnly,
+			same,
+			different,
+			config.reportDir,
+		); err != nil {
 			return fmt.Errorf("generating report: %w", err)
 		}
 	}
@@ -89,8 +97,10 @@ func run(args []string) error {
 	return nil
 }
 
-func generateReport(before, after, same, diff action.OutputPairs, reportDir string) error {
+func generateReport(beforeFile, afterFile string, before, after, same, diff action.OutputPairs, reportDir string) error {
 	r := report.Html{
+		BeforeFile: beforeFile,
+		AfterFile:  afterFile,
 		BeforeOnly: before,
 		AfterOnly:  after,
 		Equal:      same,
