@@ -68,7 +68,7 @@ func run(args []string) error {
 		if v.Diff() == "" {
 			log.Printf("in both, no change: %s\n%s", v.Output)
 		} else {
-			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff(config.beforeFile, config.afterFile))
+			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff())
 		}
 	}
 
