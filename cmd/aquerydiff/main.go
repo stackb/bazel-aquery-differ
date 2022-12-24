@@ -7,6 +7,7 @@ import (
 	"os"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
+	"github.com/stackb/bazel-aquery-differ/pkg/action"
 	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
 )
 
@@ -46,28 +47,28 @@ func run(args []string) error {
 
 	log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
 
-	beforeGraph, err := newActionGraph(&before)
+	beforeGraph, err := action.NewGraph(&before)
 	if err != nil {
 		return err
 	}
-	afterGraph, err := newActionGraph(&after)
+	afterGraph, err := action.NewGraph(&after)
 	if err != nil {
 		return err
 	}
 
-	beforeOnly, afterOnly, both := partitionGraphs(beforeGraph.actionOutputMap, afterGraph.actionOutputMap)
+	beforeOnly, afterOnly, both := action.Partition(beforeGraph.OutputMap, afterGraph.OutputMap)
 
 	for _, v := range beforeOnly {
-		log.Println("only in --before:", v.output)
+		log.Println("only in --before:", v.Output)
 	}
 	for _, v := range afterOnly {
-		log.Println("only in --after:", v.output)
+		log.Println("only in --after:", v.Output)
 	}
 	for _, v := range both {
-		if v.diff() == "" {
-			log.Printf("in both, no change: %s\n%s", v.output)
+		if v.Diff() == "" {
+			log.Printf("in both, no change: %s\n%s", v.Output)
 		} else {
-			log.Printf("in both, changed: %s\n%s", v.output, v.unifiedDiff(config.beforeFile, config.afterFile))
+			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff(config.beforeFile, config.afterFile))
 		}
 	}
 

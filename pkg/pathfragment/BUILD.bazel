@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "pathfragment",
+    srcs = ["resolver.go"],
+    importpath = "github.com/stackb/bazel-aquery-differ/pkg/pathfragment",
+    visibility = ["//visibility:public"],
+    deps = ["@bazelapis//src/main/protobuf:analysis_v2_go_proto"],
+)
+
+go_test(
+    name = "pathfragment_test",
+    srcs = ["resolver_test.go"],
+    embed = [":pathfragment"],
+    deps = [
+        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
+        "@com_github_google_go_cmp//cmp",
+    ],
+)
