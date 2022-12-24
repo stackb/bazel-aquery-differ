@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	log.Printf("Hello world")
 	if err := run(os.Args[1:]); err != nil {
 		log.Fatal(err)
 	}
@@ -36,12 +35,11 @@ func run(args []string) error {
 	}
 
 	var before anpb.ActionGraphContainer
-	var after anpb.ActionGraphContainer
-
 	if err := protobuf.ReadFile(config.beforeFile, &before); err != nil {
 		return err
 	}
 
+	var after anpb.ActionGraphContainer
 	if err := protobuf.ReadFile(config.afterFile, &after); err != nil {
 		return err
 	}
@@ -66,7 +64,11 @@ func run(args []string) error {
 		log.Println("only in --after:", v.output)
 	}
 	for _, v := range both {
-		log.Printf("action outputs present in both: %s\n%s", v.output, v.unifiedDiff(config.beforeFile, config.afterFile))
+		if v.diff() == "" {
+			log.Printf("in both, no change: %s\n%s", v.output)
+		} else {
+			log.Printf("in both, changed: %s\n%s", v.output, v.unifiedDiff(config.beforeFile, config.afterFile))
+		}
 	}
 
 	return nil
