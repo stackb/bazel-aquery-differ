@@ -9,6 +9,7 @@ import (
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	"github.com/stackb/bazel-aquery-differ/pkg/action"
 	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
+	"github.com/stackb/bazel-aquery-differ/pkg/report"
 )
 
 func main() {
@@ -25,6 +26,7 @@ func run(args []string) error {
 	flags := flag.NewFlagSet("aquerydiff", flag.ExitOnError)
 	flags.StringVar(&config.beforeFile, "before", "", "filepath to aquery file (before)")
 	flags.StringVar(&config.afterFile, "after", "", "filepath to aquery file (after)")
+	flags.StringVar(&config.reportDir, "report_dir", "", "path to directory where report files should be written")
 	if err := flags.Parse(os.Args[1:]); err != nil {
 		return err
 	}
@@ -37,6 +39,10 @@ func run(args []string) error {
 		return fmt.Errorf("--after <filename> is required")
 	}
 
+	if config.reportDir == "" {
+		return fmt.Errorf("--report_dir <filename> is required")
+	}
+
 	var before anpb.ActionGraphContainer
 	if err := protobuf.ReadFile(config.beforeFile, &before); err != nil {
 		return err
@@ -47,32 +53,44 @@ func run(args []string) error {
 		return err
 	}
 
-	log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
+	// log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
 
-	beforeGraph, err := action.NewGraph(&before)
+	beforeGraph, err := action.NewGraph("before", &before)
 	if err != nil {
 		return err
 	}
-	afterGraph, err := action.NewGraph(&after)
+	afterGraph, err := action.NewGraph("after", &after)
 	if err != nil {
 		return err
 	}
 
 	beforeOnly, afterOnly, both := action.Partition(beforeGraph.OutputMap, afterGraph.OutputMap)
+	var equal action.OutputPairs
+	var nonEqual action.OutputPairs
 
-	for _, v := range beforeOnly {
-		log.Println("only in --before:", v.Output)
-	}
-	for _, v := range afterOnly {
-		log.Println("only in --after:", v.Output)
-	}
 	for _, v := range both {
 		if v.Diff() == "" {
-			log.Printf("unchanged: %s", v.Output)
+			equal = append(equal, v)
 		} else {
-			log.Printf("changed: %s\n%s", v.Output, v.UnifiedDiff())
+			nonEqual = append(nonEqual, v)
 		}
 	}
+
+	r := report.Html{
+		BeforeFile: config.beforeFile,
+		AfterFile:  config.afterFile,
+		Before:     beforeGraph,
+		After:      afterGraph,
+		BeforeOnly: beforeOnly,
+		AfterOnly:  afterOnly,
+		Equal:      equal,
+		NonEqual:   nonEqual,
+	}
+	if err := r.Emit(config.reportDir); err != nil {
+		return fmt.Errorf("generating report: %w", err)
+	}
+
+	log.Printf("aquerydiff report available at <%s>", config.reportDir)
 
 	return nil
 }

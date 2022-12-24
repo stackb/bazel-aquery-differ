@@ -1,6 +1,7 @@
 package action
 
 import (
+	"fmt"
 	"sort"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
@@ -12,6 +13,7 @@ import (
 
 // Graph holds compiled data about the action graph container.
 type Graph struct {
+	Name           string
 	Container      *anpb.ActionGraphContainer
 	Artifacts      artifact.PathMap
 	Targets        target.Map
@@ -21,7 +23,7 @@ type Graph struct {
 	OutputMap      OutputMap
 }
 
-func NewGraph(container *anpb.ActionGraphContainer) (*Graph, error) {
+func NewGraph(name string, container *anpb.ActionGraphContainer) (*Graph, error) {
 	paths, err := artifact.NewPathMap(container.Artifacts, container.PathFragments)
 	if err != nil {
 		return nil, err
@@ -33,7 +35,8 @@ func NewGraph(container *anpb.ActionGraphContainer) (*Graph, error) {
 
 	actions := make([]*dipb.Action, len(container.Actions))
 	for i, a := range container.Actions {
-		action, err := NewAction(a, paths, targets, *depSetResolver)
+		id := fmt.Sprintf("%s/%d", name, i)
+		action, err := NewAction(id, a, paths, targets, *depSetResolver)
 		if err != nil {
 			return nil, err
 		}
@@ -62,16 +65,29 @@ func Partition(before, after OutputMap) (beforeOnly, afterOnly, both OutputPairs
 	}
 	for output := range a {
 		if b[output] {
-			both = append(both, &OutputPair{Output: output, Before: before[output], After: after[output]})
+			both = append(both, &OutputPair{
+				Output: output,
+				Action: before[output],
+				Before: before[output],
+				After:  after[output],
+			})
 			delete(a, output)
 			delete(b, output)
 		}
 	}
 	for output := range a {
-		beforeOnly = append(beforeOnly, &OutputPair{Output: output, Before: before[output]})
+		beforeOnly = append(beforeOnly, &OutputPair{
+			Output: output,
+			Action: before[output],
+			Before: before[output],
+		})
 	}
 	for output := range b {
-		beforeOnly = append(beforeOnly, &OutputPair{Output: output, After: after[output]})
+		beforeOnly = append(beforeOnly, &OutputPair{
+			Output: output,
+			Action: after[output],
+			After:  after[output],
+		})
 	}
 	sort.Sort(beforeOnly)
 	sort.Sort(afterOnly)

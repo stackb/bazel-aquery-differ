@@ -13,6 +13,7 @@ go_library(
     deps = [
         "//pkg/action",
         "//pkg/protobuf",
+        "//pkg/report",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
     ],
 )

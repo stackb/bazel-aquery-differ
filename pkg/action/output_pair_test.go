@@ -38,7 +38,7 @@ func TestOutputPairUnifiedDiff(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			got := tc.pair.UnifiedDiff()
 			if diff := cmp.Diff(tc.want, got); diff != "" {
-				t.Error("(-want,+got): %s", diff)
+				t.Errorf("(-want,+got): %s", diff)
 			}
 		})
 	}
