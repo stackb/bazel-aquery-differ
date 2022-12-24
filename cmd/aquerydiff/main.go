@@ -9,6 +9,7 @@ import (
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	"github.com/stackb/bazel-aquery-differ/pkg/action"
 	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
+	"github.com/stackb/bazel-aquery-differ/pkg/report"
 )
 
 func main() {
@@ -25,6 +26,7 @@ func run(args []string) error {
 	flags := flag.NewFlagSet("aquerydiff", flag.ExitOnError)
 	flags.StringVar(&config.beforeFile, "before", "", "filepath to aquery file (before)")
 	flags.StringVar(&config.afterFile, "after", "", "filepath to aquery file (after)")
+	flags.StringVar(&config.reportDir, "report_dir", "", "path to directory where report files should be written")
 	if err := flags.Parse(os.Args[1:]); err != nil {
 		return err
 	}
@@ -59,6 +61,8 @@ func run(args []string) error {
 	}
 
 	beforeOnly, afterOnly, both := action.Partition(beforeGraph.OutputMap, afterGraph.OutputMap)
+	var same action.OutputPairs
+	var different action.OutputPairs
 
 	for _, v := range beforeOnly {
 		log.Println("only in --before:", v.Output)
@@ -68,11 +72,29 @@ func run(args []string) error {
 	}
 	for _, v := range both {
 		if v.Diff() == "" {
-			log.Printf("unchanged: %s", v.Output)
+			same = append(same, v)
+			log.Printf("in both, no change: %s\n%s", v.Output)
 		} else {
-			log.Printf("changed: %s\n%s", v.Output, v.UnifiedDiff())
+			different = append(different, v)
+			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff())
+		}
+	}
+
+	if config.reportDir != "" {
+		if err := generateReport(beforeOnly, afterOnly, same, different, config.reportDir); err != nil {
+			return fmt.Errorf("generating report: %w", err)
 		}
 	}
 
 	return nil
+}
+
+func generateReport(before, after, same, diff action.OutputPairs, reportDir string) error {
+	r := report.Html{
+		BeforeOnly: before,
+		AfterOnly:  after,
+		Equal:      same,
+		Different:  diff,
+	}
+	return r.Emit(reportDir)
 }

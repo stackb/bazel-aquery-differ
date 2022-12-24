@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "report",
+    srcs = ["html.go"],
+    importpath = "github.com/stackb/bazel-aquery-differ/pkg/report",
+    visibility = ["//visibility:public"],
+    deps = ["//pkg/action"],
+)
