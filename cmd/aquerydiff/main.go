@@ -12,6 +12,8 @@ import (
 )
 
 func main() {
+	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
+
 	if err := run(os.Args[1:]); err != nil {
 		log.Fatal(err)
 	}
