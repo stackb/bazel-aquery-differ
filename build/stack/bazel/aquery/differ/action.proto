@@ -9,75 +9,76 @@ import "src/main/protobuf/analysis_v2.proto";
 // Action is a version of analysis.Action where inputs/outputs and similar
 // structures are expanded into their full paths.
 message Action {
+	string id = 1;	
 	// The target that was responsible for the creation of the action.
-	string target = 1;
+	string target = 2;
 
     // The aspects that were responsible for the creation of the action (if
 	// any). In the case of aspect-on-aspect, AspectDescriptors are listed in
 	// topological order of the dependency graph. e.g. [A, B] would imply that
 	// aspect A is applied on top of aspect B.
 	//
-    // repeated uint32 aspect_descriptor_ids = 2;
+    // repeated uint32 aspect_descriptor_ids = 3;
 
     // Encodes all significant behavior that might affect the output. The key
 	// must change if the work performed by the execution of this action
 	// changes. Note that the key doesn't include checksums of the input files.
-	string action_key = 3;
+	string action_key = 4;
 
 	// The mnemonic for this kind of action.
-	string mnemonic = 4;
+	string mnemonic = 5;
 
 	// The configuration under which this action is executed.
-	//uint32 configuration_id = 5;
+	//uint32 configuration_id = 6;
 
 	// The command line arguments of the action. This will be only set if
 	// explicitly requested.
-	repeated string arguments = 6;
+	repeated string arguments = 7;
 
 	// The list of environment variables to be set before executing the command.
-	repeated analysis.KeyValuePair environment_variables = 7;
+	repeated analysis.KeyValuePair environment_variables = 8;
 
 	// The set of input dep sets that the action depends upon. If the action
 	// does input discovery, the contents of this set might change during
 	// execution.
-	repeated string inputs = 8;
+	repeated string inputs = 9;
 
 	// The list of Artifact IDs that represent the output files that this action
 	// will generate.
-	repeated string outputs = 9;
+	repeated string outputs = 10;
 
 	// a space-concatenated string of the .Outputs
-    string output_files = 10;
+    string output_files = 11;
 
 	// True iff the action does input discovery during execution.
-	bool discovers_inputs = 11;
+	bool discovers_inputs = 12;
 
 	// Execution info for the action.  Remote execution services may use this
 	// information to modify the execution environment, but actions will
 	// generally not be aware of it.
-	repeated analysis.KeyValuePair execution_info = 12;
+	repeated analysis.KeyValuePair execution_info = 13;
 
 	// The list of param files. This will be only set if explicitly requested.
-	repeated analysis.ParamFile param_files = 13;
+	repeated analysis.ParamFile param_files = 14;
 
 	// The id to an Artifact that is the primary output of this action.
-	string primary_output = 14;
+	string primary_output = 15;
 
 	// The execution platform for this action. Empty if the action has no
 	// execution platform.
-	string execution_platform = 15;
+	string execution_platform = 16;
 
 	// The template content of the action, if it is TemplateExpand action.
-	string template_content = 16;
+	string template_content = 17;
 
 	// The list of substitution should be performed on the template. The key is
 	// the string to be substituted and the value is the string to be substituted
 	// to.
-	repeated analysis.KeyValuePair substitutions = 17;
+	repeated analysis.KeyValuePair substitutions = 18;
 
 	// The contents of the file for the actions.write() action
 	// (guarded by the --include_file_write_contents flag).
-	string file_contents = 18;
+	string file_contents = 19;
 }
 
 

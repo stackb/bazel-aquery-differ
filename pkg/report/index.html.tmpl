@@ -1,14 +1,68 @@
 <html>
 
 <head>
+    <title>Aquerydiff Report</title>
+    <link href="/style.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>aquerydiff report v1</h1>
+<body class="markdown-body container-lg">
+    <h1><code>aquerydiff</code> report</h1>
     <ul>
         <li>before file: <code>{{.BeforeFile}}</code></li>
         <li>after file: <code>{{.AfterFile}}</code></li>
     </ul>
+
+    <h2>Actions present only in <code>--before</code>:</h2>
+    {{ template "outputPairsTable" .BeforeOnly }}
+
+    <h2>Actions present only in <code>--after</code>:</h2>
+    {{ template "outputPairsTable" .AfterOnly }}
+
+    <h2>Non-equal actions:</h2>
+    {{ template "outputPairsTable" .NonEqual }}
+
+    <h2>Equal actions:</h2>
+    {{ template "outputPairsTable" .Equal }}
+
 </body>
 
 </html>
+
+{{ define "outputPairsTable"}}
+{{ if . }}
+    <table>
+        <thead>
+            <th class="mnemonic">Mnemonic</th>
+            <th class="outputfile">Output File(s)</th>
+        </thead>
+        <tbody>
+            {{ range .}}
+            {{ template "outputPairRow" . }}
+            {{ end }}
+        </tbody>
+    </table>
+{{ else }}
+    <p><code>None</code></p>
+{{ end }}
+{{ end }}
+
+{{ define "outputPairRow"}}
+<tr>
+    <td class="mnemonic">{{ .Action.Mnemonic }}</td>
+    <td class="outputfile">
+        <code>{{ .Output }}</code>
+        <div class="links">
+        <br>
+        {{ if .Before }}
+        before: [<a href="{{ .Before.Id }}.json">json</a>] [<a href="{{ .Before.Id }}.txt">txt</a>]
+        {{ end }}
+        {{ if .After }}
+        after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.txt">txt</a>]
+        {{ end }}
+        {{ if and .Before .After }}
+        diff: [<a href="{{ .Before.Id }}/{{ .After.Id }}.diff.txt">unidiff</a>] [<a href="{{ .Before.Id }}/{{ .After.Id }}.cmp.txt">go-cmp</a>]
+        {{ end }}
+        </div>
+    </td>
+</tr>
+{{ end }}

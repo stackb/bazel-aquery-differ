@@ -6,10 +6,17 @@ go_library(
         "assets.go",
         "html.go",
     ],
-    embedsrcs = ["index.html.tmpl"],
+    embedsrcs = [
+        "index.html.tmpl",
+        "style.css",
+    ],
     importpath = "github.com/stackb/bazel-aquery-differ/pkg/report",
     visibility = ["//visibility:public"],
-    deps = ["//pkg/action"],
+    deps = [
+        "//build/stack/bazel/aquery/differ:differ_go_proto",
+        "//pkg/action",
+        "//pkg/protobuf",
+    ],
 )
 
 go_test(

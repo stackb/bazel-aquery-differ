@@ -11,12 +11,18 @@ import (
 
 type OutputPair struct {
 	Output string
+	Action *dipb.Action // representative of before/after
 	Before *dipb.Action
 	After  *dipb.Action
 }
 
 func (p *OutputPair) Diff() string {
-	return cmp.Diff(p.Before, p.After, cmpopts.IgnoreUnexported(dipb.Action{}, anpb.KeyValuePair{}))
+	return cmp.Diff(
+		p.Before,
+		p.After,
+		cmpopts.IgnoreFields(dipb.Action{}, "Id"),
+		cmpopts.IgnoreUnexported(dipb.Action{}, anpb.KeyValuePair{}),
+	)
 }
 
 func (p *OutputPair) UnifiedDiff() string {

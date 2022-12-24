@@ -12,7 +12,7 @@ import (
 	"github.com/stackb/bazel-aquery-differ/pkg/target"
 )
 
-func NewAction(in *anpb.Action, artifacts artifact.PathMap, targets target.Map, deps depset.Resolver) (*dipb.Action, error) {
+func NewAction(id string, in *anpb.Action, artifacts artifact.PathMap, targets target.Map, deps depset.Resolver) (*dipb.Action, error) {
 	target, ok := targets[in.TargetId]
 	if !ok {
 		return nil, fmt.Errorf("target not found: %d", in.TargetId)
@@ -32,6 +32,7 @@ func NewAction(in *anpb.Action, artifacts artifact.PathMap, targets target.Map, 
 	}
 	sort.Strings(outputs)
 	out := &dipb.Action{
+		Id:                   id,
 		Target:               target.Label,
 		ActionKey:            in.ActionKey,
 		Mnemonic:             in.Mnemonic,

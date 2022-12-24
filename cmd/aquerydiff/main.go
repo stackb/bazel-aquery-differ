@@ -39,6 +39,10 @@ func run(args []string) error {
 		return fmt.Errorf("--after <filename> is required")
 	}
 
+	if config.reportDir == "" {
+		return fmt.Errorf("--report_dir <filename> is required")
+	}
+
 	var before anpb.ActionGraphContainer
 	if err := protobuf.ReadFile(config.beforeFile, &before); err != nil {
 		return err
@@ -49,62 +53,42 @@ func run(args []string) error {
 		return err
 	}
 
-	log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
+	// log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
 
-	beforeGraph, err := action.NewGraph(&before)
+	beforeGraph, err := action.NewGraph("before", &before)
 	if err != nil {
 		return err
 	}
-	afterGraph, err := action.NewGraph(&after)
+	afterGraph, err := action.NewGraph("after", &after)
 	if err != nil {
 		return err
 	}
 
 	beforeOnly, afterOnly, both := action.Partition(beforeGraph.OutputMap, afterGraph.OutputMap)
-	var same action.OutputPairs
-	var different action.OutputPairs
+	var equal action.OutputPairs
+	var nonEqual action.OutputPairs
 
-	for _, v := range beforeOnly {
-		log.Println("only in --before:", v.Output)
-	}
-	for _, v := range afterOnly {
-		log.Println("only in --after:", v.Output)
-	}
 	for _, v := range both {
 		if v.Diff() == "" {
-			same = append(same, v)
-			log.Printf("in both, no change: %s\n%s", v.Output)
+			equal = append(equal, v)
 		} else {
-			different = append(different, v)
-			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff())
+			nonEqual = append(nonEqual, v)
 		}
 	}
 
-	if config.reportDir != "" {
-		if err := generateReport(
-			config.beforeFile,
-			config.afterFile,
-			beforeOnly,
-			afterOnly,
-			same,
-			different,
-			config.reportDir,
-		); err != nil {
-			return fmt.Errorf("generating report: %w", err)
-		}
+	r := report.Html{
+		BeforeFile: config.beforeFile,
+		AfterFile:  config.afterFile,
+		Before:     beforeGraph,
+		After:      afterGraph,
+		BeforeOnly: beforeOnly,
+		AfterOnly:  afterOnly,
+		Equal:      equal,
+		NonEqual:   nonEqual,
+	}
+	if err := r.Emit(config.reportDir); err != nil {
+		return fmt.Errorf("generating report: %w", err)
 	}
 
 	return nil
-}
-
-func generateReport(beforeFile, afterFile string, before, after, same, diff action.OutputPairs, reportDir string) error {
-	r := report.Html{
-		BeforeFile: beforeFile,
-		AfterFile:  afterFile,
-		BeforeOnly: before,
-		AfterOnly:  after,
-		Equal:      same,
-		Different:  diff,
-	}
-	return r.Emit(reportDir)
 }
