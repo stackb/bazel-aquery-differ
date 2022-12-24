@@ -4,27 +4,15 @@ load(":platforms.bzl", "platforms")
 go_library(
     name = "aquerydiff_lib",
     srcs = [
-        "action.go",
-        "action_graph.go",
-        "action_output_map.go",
-        "action_output_pair.go",
-        "artifact_path_map.go",
         "config.go",
-        "dep_set_of_files_map.go",
-        "dep_set_resolver.go",
         "main.go",
-        "path_fragment_resolver.go",
-        "target_map.go",
     ],
     importpath = "github.com/stackb/bazel-aquery-differ/cmd/aquerydiff",
     visibility = ["//visibility:private"],
     deps = [
-        "//build/stack/bazel/aquery/differ:differ_go_proto",
+        "//pkg/action",
         "//pkg/protobuf",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
-        "@com_github_google_go_cmp//cmp",
-        "@com_github_google_go_cmp//cmp/cmpopts",
-        "@com_github_pmezard_go_difflib//difflib",
     ],
 )
 

@@ -1,4 +1,4 @@
-package main
+package pathfragment
 
 import (
 	"fmt"
@@ -7,14 +7,13 @@ import (
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 )
 
-// pathFragmentResolver is a helper type that reconstructs full paths based on
-// path IDs.
-type pathFragmentResolver struct {
+// Resolver is a helper type that reconstructs full paths based on path IDs.
+type Resolver struct {
 	fragments map[uint32]*anpb.PathFragment
 }
 
-func newPathFragmentResolver(fragments []*anpb.PathFragment) *pathFragmentResolver {
-	resolver := &pathFragmentResolver{
+func NewResolver(fragments []*anpb.PathFragment) *Resolver {
+	resolver := &Resolver{
 		fragments: make(map[uint32]*anpb.PathFragment),
 	}
 	for _, v := range fragments {
@@ -23,7 +22,7 @@ func newPathFragmentResolver(fragments []*anpb.PathFragment) *pathFragmentResolv
 	return resolver
 }
 
-func (r *pathFragmentResolver) resolve(id uint32) (string, error) {
+func (r *Resolver) Resolve(id uint32) (string, error) {
 	var tokens []string
 	current := id
 	for current != 0 {

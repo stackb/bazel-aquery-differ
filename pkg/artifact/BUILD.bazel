@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "artifact",
+    srcs = ["path_map.go"],
+    importpath = "github.com/stackb/bazel-aquery-differ/pkg/artifact",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/pathfragment",
+        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
+    ],
+)
+
+go_test(
+    name = "artifact_test",
+    srcs = ["path_map_test.go"],
+    embed = [":artifact"],
+    deps = [
+        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
+        "@com_github_google_go_cmp//cmp",
+    ],
+)

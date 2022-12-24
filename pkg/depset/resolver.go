@@ -1,32 +1,33 @@
-package main
+package depset
 
 import (
 	"fmt"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
+	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
 )
 
-type depSetResolver struct {
-	depSets         depSetOfFilesMap
+type Resolver struct {
+	depSets         Map
 	depSetArtifacts map[uint32][]string
-	artifacts       artifactPathMap
+	artifacts       artifact.PathMap
 }
 
-func newDepSetResolver(artifacts artifactPathMap, depSets depSetOfFilesMap) *depSetResolver {
-	return &depSetResolver{
+func NewResolver(artifacts artifact.PathMap, depSets Map) *Resolver {
+	return &Resolver{
 		artifacts:       artifacts,
 		depSets:         depSets,
 		depSetArtifacts: make(map[uint32][]string),
 	}
 }
 
-func (r *depSetResolver) resolveIds(depSetIds []uint32) (artifacts []string, err error) {
+func (r *Resolver) ResolveIds(depSetIds []uint32) (artifacts []string, err error) {
 	for _, id := range depSetIds {
 		depSet, ok := r.depSets[id]
 		if !ok {
 			return nil, fmt.Errorf("depSetOfFiles not found: %d", id)
 		}
-		files, err := r.resolve(depSet)
+		files, err := r.Resolve(depSet)
 		if err != nil {
 			return nil, err
 		}
@@ -35,7 +36,7 @@ func (r *depSetResolver) resolveIds(depSetIds []uint32) (artifacts []string, err
 	return
 }
 
-func (r *depSetResolver) resolve(in *anpb.DepSetOfFiles) ([]string, error) {
+func (r *Resolver) Resolve(in *anpb.DepSetOfFiles) ([]string, error) {
 	if depSetArtifacts, ok := r.depSetArtifacts[in.Id]; ok {
 		return depSetArtifacts, nil
 	}
@@ -55,7 +56,7 @@ func (r *depSetResolver) resolve(in *anpb.DepSetOfFiles) ([]string, error) {
 		if !ok {
 			return nil, fmt.Errorf("depSetOfFiles not found: %d", id)
 		}
-		files, err := r.resolve(depSet)
+		files, err := r.Resolve(depSet)
 		if err != nil {
 			return nil, fmt.Errorf("resolving transitive depSet %d: %w", id, err)
 		}

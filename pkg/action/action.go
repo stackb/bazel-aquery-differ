@@ -1,4 +1,4 @@
-package main
+package action
 
 import (
 	"fmt"
@@ -7,14 +7,17 @@ import (
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
+	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
+	"github.com/stackb/bazel-aquery-differ/pkg/depset"
+	"github.com/stackb/bazel-aquery-differ/pkg/target"
 )
 
-func newAction(in *anpb.Action, artifacts artifactPathMap, targets targetMap, deps depSetResolver) (*dipb.Action, error) {
+func NewAction(in *anpb.Action, artifacts artifact.PathMap, targets target.Map, deps depset.Resolver) (*dipb.Action, error) {
 	target, ok := targets[in.TargetId]
 	if !ok {
 		return nil, fmt.Errorf("target not found: %d", in.TargetId)
 	}
-	inputs, err := deps.resolveIds(in.InputDepSetIds)
+	inputs, err := deps.ResolveIds(in.InputDepSetIds)
 	if err != nil {
 		return nil, err
 	}
