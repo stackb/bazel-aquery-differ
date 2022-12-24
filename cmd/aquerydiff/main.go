@@ -68,9 +68,9 @@ func run(args []string) error {
 	}
 	for _, v := range both {
 		if v.Diff() == "" {
-			log.Printf("in both, no change: %s\n%s", v.Output)
+			log.Printf("unchanged: %s", v.Output)
 		} else {
-			log.Printf("in both, changed: %s\n%s", v.Output, v.UnifiedDiff())
+			log.Printf("changed: %s\n%s", v.Output, v.UnifiedDiff())
 		}
 	}
 
