@@ -63,7 +63,7 @@ type FileSpec struct {
 // after the test.
 func CreateFiles(t *testing.T, files []FileSpec) (dir string, cleanup func()) {
 	t.Helper()
-	dir, err := ioutil.TempDir(os.Getenv("TEST_TEMPDIR"), "gazelle_test")
+	dir, err := ioutil.TempDir(os.Getenv("TEST_TEMPDIR"), "aquerydiff_test")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -142,7 +142,7 @@ func CheckFiles(t *testing.T, dir string, files []FileSpec) {
 	}
 }
 
-type TestGazelleGenerationArgs struct {
+type TestAquerydiffGenerationArgs struct {
 	// Name is the name of the test.
 	Name string
 	// TestDataPathAbsolute is the absolute path to the test data directory.
@@ -151,9 +151,9 @@ type TestGazelleGenerationArgs struct {
 	// TestDataPathRealtive is the workspace relative path to the test data directory.
 	// For example, path/to/test_data/my_testcase.
 	TestDataPathRelative string
-	// GazelleBinaryPath is the workspace relative path to the location of the gazelle binary
+	// AquerydiffBinaryPath is the workspace relative path to the location of the aquerydiff binary
 	// we want to test.
-	GazelleBinaryPath string
+	AquerydiffBinaryPath string
 
 	// BuildInSuffix is the suffix for all test input build files. Includes the ".".
 	// Default: ".in", so input BUILD files should be named BUILD.in.
@@ -174,7 +174,7 @@ var (
 	expectedExitCodeFilename = "expectedExitCode.txt"
 )
 
-// TestGazelleGenerationOnPath runs a full gazelle binary on a testdata directory.
+// TestAquerydiffGenerationOnPath runs a full aquerydiff binary on a testdata directory.
 // With a test data directory of the form:
 // └── <testDataPath>
 //
@@ -187,9 +187,9 @@ var (
 //	    ├── expectedExitCode.txt --> Expected exit code for this test.
 //	    └── app
 //	        └── sourceFile.foo
-//	        └── BUILD.in --> BUILD file prior to running gazelle.
-//	        └── BUILD.out --> BUILD file expected after running gazelle.
-func TestGazelleGenerationOnPath(t *testing.T, args *TestGazelleGenerationArgs) {
+//	        └── BUILD.in --> BUILD file prior to running aquerydiff.
+//	        └── BUILD.out --> BUILD file expected after running aquerydiff.
+func TestAquerydiffGenerationOnPath(t *testing.T, args *TestAquerydiffGenerationArgs) {
 	t.Run(args.Name, func(t *testing.T) {
 		t.Helper() // Make the stack trace a little bit more clear.
 		if args.BuildInSuffix == "" {
@@ -330,7 +330,7 @@ Run %s to update BUILD.out and expected{Stdout,Stderr,ExitCode}.txt files.
 
 		ctx, cancel := context.WithTimeout(context.Background(), args.Timeout)
 		defer cancel()
-		cmd := exec.CommandContext(ctx, args.GazelleBinaryPath, config.Args...)
+		cmd := exec.CommandContext(ctx, args.AquerydiffBinaryPath, config.Args...)
 		cmd.Stdout = &stdout
 		cmd.Stderr = &stderr
 		cmd.Dir = workspaceRoot

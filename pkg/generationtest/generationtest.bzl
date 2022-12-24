@@ -1,5 +1,5 @@
 """
-Test for generating rules from gazelle.
+Test for generating rules from aquerydiff.
 """
 
 load("@io_bazel_rules_go//go:def.bzl", "go_test")

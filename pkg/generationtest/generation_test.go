@@ -11,27 +11,27 @@ import (
 )
 
 var (
-	gazelleBinaryPath = flag.String("gazelle_binary_path", "", "Path to the gazelle binary to test.")
-	buildInSuffix     = flag.String("build_in_suffix", ".in", "The suffix on the test input BUILD.bazel files. Defaults to .in. "+
-		" By default, will use files named BUILD.in as the BUILD files before running gazelle.")
-	buildOutSuffix = flag.String("build_out_suffix", ".out", "The suffix on the expected BUILD.bazel files after running gazelle. Defaults to .out. "+
-		" By default, will use files named BUILD.out as the expected results of the gazelle run.")
-	timeout = flag.Duration("timeout", 2*time.Second, "Time to allow the gazelle process to run before killing.")
+	aquerydiffBinaryPath = flag.String("aquerydiff_binary_path", "", "Path to the aquerydiff binary to test.")
+	buildInSuffix        = flag.String("build_in_suffix", ".in", "The suffix on the test input BUILD.bazel files. Defaults to .in. "+
+		" By default, will use files named BUILD.in as the BUILD files before running aquerydiff.")
+	buildOutSuffix = flag.String("build_out_suffix", ".out", "The suffix on the expected BUILD.bazel files after running aquerydiff. Defaults to .out. "+
+		" By default, will use files named BUILD.out as the expected results of the aquerydiff run.")
+	timeout = flag.Duration("timeout", 2*time.Second, "Time to allow the aquerydiff process to run before killing.")
 )
 
-// TestFullGeneration runs the gazelle binary on a few example
+// TestFullGeneration runs the aquerydiff binary on a few example
 // workspaces and confirms that the generated BUILD files match expectation.
 func TestFullGeneration(t *testing.T) {
-	tests := []*testtools.TestGazelleGenerationArgs{}
+	tests := []*testtools.TestAquerydiffGenerationArgs{}
 	runfiles, err := bazel.ListRunfiles()
 	if err != nil {
 		t.Fatalf("bazel.ListRunfiles() error: %v", err)
 	}
-	// Convert workspace relative path for gazelle binary into an absolute path.
-	// E.g. path/to/gazelle_binary -> /absolute/path/to/workspace/path/to/gazelle/binary.
-	absoluteGazelleBinary, err := bazel.Runfile(*gazelleBinaryPath)
+	// Convert workspace relative path for aquerydiff binary into an absolute path.
+	// E.g. path/to/aquerydiff_binary -> /absolute/path/to/workspace/path/to/aquerydiff/binary.
+	absoluteAquerydiffBinary, err := bazel.Runfile(*aquerydiffBinaryPath)
 	if err != nil {
-		t.Fatalf("Could not convert gazelle binary path %s to absolute path. Error: %v", *gazelleBinaryPath, err)
+		t.Fatalf("Could not convert aquerydiff binary path %s to absolute path. Error: %v", *aquerydiffBinaryPath, err)
 	}
 	for _, f := range runfiles {
 		// Look through runfiles for WORKSPACE files. Each WORKSPACE is a test case.
@@ -46,11 +46,11 @@ func TestFullGeneration(t *testing.T) {
 			// The name of the directory doubles as the name of the test.
 			name := filepath.Base(absolutePathToTestDirectory)
 
-			tests = append(tests, &testtools.TestGazelleGenerationArgs{
+			tests = append(tests, &testtools.TestAquerydiffGenerationArgs{
 				Name:                 name,
 				TestDataPathAbsolute: absolutePathToTestDirectory,
 				TestDataPathRelative: relativePathToTestDirectory,
-				GazelleBinaryPath:    absoluteGazelleBinary,
+				AquerydiffBinaryPath: absoluteAquerydiffBinary,
 				BuildInSuffix:        *buildInSuffix,
 				BuildOutSuffix:       *buildOutSuffix,
 				Timeout:              *timeout,
@@ -62,6 +62,6 @@ func TestFullGeneration(t *testing.T) {
 	}
 
 	for _, args := range tests {
-		testtools.TestGazelleGenerationOnPath(t, args)
+		testtools.TestAquerydiffGenerationOnPath(t, args)
 	}
 }
