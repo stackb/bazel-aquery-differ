@@ -4,6 +4,7 @@ go_library(
     name = "report",
     srcs = [
         "assets.go",
+        "files.go",
         "html.go",
     ],
     embedsrcs = [
@@ -23,5 +24,4 @@ go_test(
     name = "report_test",
     srcs = ["html_test.go"],
     embed = [":report"],
-    deps = ["@com_github_google_go_cmp//cmp"],
 )
