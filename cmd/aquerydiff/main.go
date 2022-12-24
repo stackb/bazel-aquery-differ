@@ -90,5 +90,7 @@ func run(args []string) error {
 		return fmt.Errorf("generating report: %w", err)
 	}
 
+	log.Printf("aquerydiff report available at <%s>", config.reportDir)
+
 	return nil
 }
