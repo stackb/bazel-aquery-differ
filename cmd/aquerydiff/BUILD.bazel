@@ -72,3 +72,9 @@ aquerydiff_generation_test(
     aquerydiff_binary = ":aquerydiff",
     test_data = glob(["testdata/baseline/**/*"]),
 )
+
+aquerydiff_generation_test(
+    name = "example_test",
+    aquerydiff_binary = ":aquerydiff",
+    test_data = glob(["testdata/example/**/*"]),
+)
