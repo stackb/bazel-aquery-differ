@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("//pkg/generationtest:generationtest.bzl", "aquerydiff_generation_test")
 load(":platforms.bzl", "platforms")
 
 go_library(
@@ -65,3 +66,9 @@ go_binary(
     )
     for platform in platforms
 ]
+
+aquerydiff_generation_test(
+    name = "baseline_test",
+    aquerydiff_binary = ":aquerydiff",
+    test_data = glob(["testdata/baseline/**/*"]),
+)

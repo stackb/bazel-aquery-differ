@@ -42,7 +42,7 @@ def aquerydiff_generation_test(name, aquerydiff_binary, test_data, build_in_suff
         name = name,
         srcs = [Label("//pkg/generationtest:generation_test.go")],
         deps = [
-            Label("//testtools"),
+            Label("//pkg/testtools"),
             "@io_bazel_rules_go//go/tools/bazel:go_default_library",
         ],
         args = [
