@@ -23,7 +23,14 @@ bazel aquery //pkg:target-name --output proto > before.pb
 > The file extensions are relevant; the proto decoder will be `protojson` if
 `.json`, `prototext` if `.text.pb` and `proto` otherwise.
 
-An HTML report and accessory files will be written to the given `--report_dir`
-that will look something like:
+
+An HTML report and accessory files will be written to the given `--report_dir`,
+which you could serve as follows:
+
+```
+(cd <REPORT_DIR> && python3 -m http.server 8000) &
+```
+
+> Report will look something like:
 
 <img width="934" alt="image" src="https://user-images.githubusercontent.com/50580/209453563-064db4dd-4068-4d2f-8bb3-35c425bfb8b5.png">
