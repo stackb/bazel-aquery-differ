@@ -28,7 +28,7 @@ func marshalerForFilename(filename string) marshaler {
 	if filepath.Ext(filename) == ".json" {
 		return protojson.Marshal
 	}
-	if filepath.Ext(filename) == ".text" {
+	if filepath.Ext(filename) == ".textproto" {
 		return prototext.Marshal
 	}
 	return proto.Marshal

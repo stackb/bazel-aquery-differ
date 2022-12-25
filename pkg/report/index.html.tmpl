@@ -54,10 +54,10 @@
         <div class="links">
         <br>
         {{ if .Before }}
-        before: [<a href="{{ .Before.Id }}.json">json</a>] [<a href="{{ .Before.Id }}.text">text</a>]
+        before: [<a href="{{ .Before.Id }}.json">json</a>] [<a href="{{ .Before.Id }}.textproto">text</a>]
         {{ end }}
         {{ if .After }}
-        after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.text">text</a>]
+        after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.textproto">text</a>]
         {{ end }}
         {{ if and .Before .After }}
         diff: [<a href="{{ .Before.Id }}/{{ .After.Id }}.diff.txt">unidiff</a>] [<a href="{{ .Before.Id }}/{{ .After.Id }}.cmp.txt">go-cmp</a>]

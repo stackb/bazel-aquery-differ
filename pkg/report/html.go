@@ -72,10 +72,10 @@ func (r *Html) Emit(dir string) error {
 }
 
 func (r *Html) emitAction(dir string, action *dipb.Action) error {
-	if err := r.emitActionJson(dir, action); err != nil {
+	if err := r.emitActionJsonproto(dir, action); err != nil {
 		return err
 	}
-	if err := r.emitActionText(dir, action); err != nil {
+	if err := r.emitActionTextproto(dir, action); err != nil {
 		return err
 	}
 	return nil
@@ -90,7 +90,7 @@ func (r *Html) emitFile(dir string, original string) error {
 	return copyFile(original, filename)
 }
 
-func (r *Html) emitActionJson(dir string, action *dipb.Action) error {
+func (r *Html) emitActionJsonproto(dir string, action *dipb.Action) error {
 	filename := filepath.Join(dir, action.Id+".json")
 	basedir := filepath.Dir(filename)
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
@@ -102,8 +102,8 @@ func (r *Html) emitActionJson(dir string, action *dipb.Action) error {
 	return nil
 }
 
-func (r *Html) emitActionText(dir string, a *dipb.Action) error {
-	filename := filepath.Join(dir, a.Id+".text")
+func (r *Html) emitActionTextproto(dir string, a *dipb.Action) error {
+	filename := filepath.Join(dir, a.Id+".textproto")
 	basedir := filepath.Dir(filename)
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err

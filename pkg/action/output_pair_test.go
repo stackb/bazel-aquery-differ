@@ -26,8 +26,8 @@ func TestOutputPairUnifiedDiff(t *testing.T) {
 			want: `--- src/main/java/libhelper.jar
 +++ src/main/java/libhelper.jar
 @@ -1,2 +1,2 @@
--action_key: "abcdef"
-+action_key: "123456"
+-action_key:  "abcdef"
++action_key:  "123456"
  
 `,
 		},
