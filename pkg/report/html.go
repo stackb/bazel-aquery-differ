@@ -26,32 +26,48 @@ type Html struct {
 }
 
 func (r *Html) Emit(dir string) error {
+	if err := r.emitFile(dir, r.BeforeFile); err != nil {
+		return err
+	}
+	r.BeforeFile = filepath.Base(r.BeforeFile)
+
+	if err := r.emitFile(dir, r.AfterFile); err != nil {
+		return err
+	}
+	r.AfterFile = filepath.Base(r.AfterFile)
+
 	for _, action := range r.Before.Actions {
 		if err := r.emitAction(dir, action); err != nil {
 			return err
 		}
 	}
+
 	for _, action := range r.After.Actions {
 		if err := r.emitAction(dir, action); err != nil {
 			return err
 		}
 	}
+
 	for _, pair := range r.Equal {
 		if err := r.emitOutputPairDiff(dir, pair); err != nil {
 			return err
 		}
 	}
+
 	for _, pair := range r.NonEqual {
 		if err := r.emitOutputPairDiff(dir, pair); err != nil {
 			return err
 		}
 	}
+
 	if err := r.emitIndexHtml(dir); err != nil {
 		return err
 	}
+
 	if err := r.emitStyleCss(dir); err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -63,6 +79,15 @@ func (r *Html) emitAction(dir string, action *dipb.Action) error {
 		return err
 	}
 	return nil
+}
+
+func (r *Html) emitFile(dir string, original string) error {
+	filename := filepath.Join(dir, filepath.Base(original))
+	basedir := filepath.Dir(filename)
+	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
+		return err
+	}
+	return copyFile(original, filename)
 }
 
 func (r *Html) emitActionJson(dir string, action *dipb.Action) error {
