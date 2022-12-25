@@ -12,16 +12,16 @@
         <li><code>--after</code> <a href="{{.AfterFile}}">{{.AfterFile}}</a></li>
     </ul>
 
-    <h2>Actions present only in <code>--before</code>:</h2>
+    <h2>Actions present only in <code>--before</code></h2>
     {{ template "outputPairsTable" .BeforeOnly }}
 
-    <h2>Actions present only in <code>--after</code>:</h2>
+    <h2>Actions present only in <code>--after</code></h2>
     {{ template "outputPairsTable" .AfterOnly }}
 
-    <h2>Non-equal actions:</h2>
+    <h2>Non-equal actions</h2>
     {{ template "outputPairsTable" .NonEqual }}
 
-    <h2>Equal actions:</h2>
+    <h2>Equal actions</h2>
     {{ template "outputPairsTable" .Equal }}
 
 </body>
@@ -48,7 +48,7 @@
 
 {{ define "outputPairRow"}}
 <tr>
-    <td class="mnemonic">{{ .Action.Mnemonic }}</td>
+    <td class="mnemonic"><label class="Label Label--success">{{ .Action.Mnemonic }}</label></td>
     <td class="outputfile">
         <code>{{ .Output }}</code>
         <div class="links">
