@@ -25,13 +25,10 @@ func TestOutputPairUnifiedDiff(t *testing.T) {
 			},
 			want: `--- src/main/java/libhelper.jar
 +++ src/main/java/libhelper.jar
-@@ -1,5 +1,5 @@
- Target: 
--ActionKey: abcdef
-+ActionKey: 123456
- Mnemonic: 
- PrimaryOutput: 
- OutputFiles: 
+@@ -1,2 +1,2 @@
+-action_key:  "abcdef"
++action_key:  "123456"
+ 
 `,
 		},
 	} {
