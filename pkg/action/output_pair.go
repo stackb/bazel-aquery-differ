@@ -7,6 +7,7 @@ import (
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
+	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
 )
 
 type OutputPair struct {
@@ -29,10 +30,10 @@ func (p *OutputPair) UnifiedDiff() string {
 	var a string
 	var b string
 	if p.Before != nil {
-		a = FormatAction(p.Before)
+		a = protobuf.FormatProtoText(p.Before)
 	}
 	if p.After != nil {
-		b = FormatAction(p.After)
+		b = protobuf.FormatProtoText(p.After)
 	}
 	diff := difflib.UnifiedDiff{
 		A:        difflib.SplitLines(a),

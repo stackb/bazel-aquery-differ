@@ -75,7 +75,7 @@ func (r *Html) emitAction(dir string, action *dipb.Action) error {
 	if err := r.emitActionJson(dir, action); err != nil {
 		return err
 	}
-	if err := r.emitActionTxt(dir, action); err != nil {
+	if err := r.emitActionText(dir, action); err != nil {
 		return err
 	}
 	return nil
@@ -102,13 +102,13 @@ func (r *Html) emitActionJson(dir string, action *dipb.Action) error {
 	return nil
 }
 
-func (r *Html) emitActionTxt(dir string, a *dipb.Action) error {
-	filename := filepath.Join(dir, a.Id+".txt")
+func (r *Html) emitActionText(dir string, a *dipb.Action) error {
+	filename := filepath.Join(dir, a.Id+".text")
 	basedir := filepath.Dir(filename)
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err
 	}
-	if err := os.WriteFile(filename, []byte(action.FormatAction(a)), fs.ModePerm); err != nil {
+	if err := protobuf.WritePrettyTextFile(filename, a); err != nil {
 		return err
 	}
 	return nil

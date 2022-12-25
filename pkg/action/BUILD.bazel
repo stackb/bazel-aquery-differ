@@ -14,6 +14,7 @@ go_library(
         "//build/stack/bazel/aquery/differ:differ_go_proto",
         "//pkg/artifact",
         "//pkg/depset",
+        "//pkg/protobuf",
         "//pkg/target",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
         "@com_github_google_go_cmp//cmp",
