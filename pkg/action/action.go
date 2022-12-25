@@ -53,36 +53,3 @@ func NewAction(id string, in *anpb.Action, artifacts artifact.PathMap, targets t
 
 	return out, nil
 }
-
-// FormatAction prints a flattened/simple representation of an action, for
-// unidiffing.
-func FormatAction(a *dipb.Action) string {
-	var buf strings.Builder
-	fmt.Fprintf(&buf, "Target: %s\n", a.Target)
-	fmt.Fprintf(&buf, "ActionKey: %s\n", a.ActionKey)
-	fmt.Fprintf(&buf, "Mnemonic: %s\n", a.Mnemonic)
-	fmt.Fprintf(&buf, "PrimaryOutput: %s\n", a.PrimaryOutput)
-	fmt.Fprintf(&buf, "OutputFiles: %s\n", a.OutputFiles)
-	fmt.Fprintf(&buf, "ExecutionPlatform: %s\n", a.ExecutionPlatform)
-	fmt.Fprintf(&buf, "ExecutionInfo: %d\n", len(a.ExecutionInfo))
-	for i, e := range a.ExecutionInfo {
-		fmt.Fprintf(&buf, "- %d: %s=%s\n", i, e.Key, e.Value)
-	}
-	fmt.Fprintf(&buf, "EnvironmentVariables: %d\n", len(a.EnvironmentVariables))
-	for i, e := range a.EnvironmentVariables {
-		fmt.Fprintf(&buf, "- %d: %s=%s\n", i, e.Key, e.Value)
-	}
-	fmt.Fprintf(&buf, "Arguments: %d\n", len(a.Arguments))
-	for i, arg := range a.Arguments {
-		fmt.Fprintf(&buf, "- %d: %s\n", i, arg)
-	}
-	fmt.Fprintf(&buf, "Inputs: %d\n", len(a.Inputs))
-	for i, arg := range a.Inputs {
-		fmt.Fprintf(&buf, "- %d: %s\n", i, arg)
-	}
-	fmt.Fprintf(&buf, "Outputs: %d\n", len(a.Outputs))
-	for i, arg := range a.Outputs {
-		fmt.Fprintf(&buf, "- %d: %s\n", i, arg)
-	}
-	return buf.String()
-}

@@ -28,7 +28,7 @@ func marshalerForFilename(filename string) marshaler {
 	if filepath.Ext(filename) == ".json" {
 		return protojson.Marshal
 	}
-	if filepath.Ext(filename) == ".text" {
+	if filepath.Ext(filename) == ".textproto" {
 		return prototext.Marshal
 	}
 	return proto.Marshal
@@ -71,4 +71,27 @@ func WritePrettyJSONFile(filename string, message protoreflect.ProtoMessage) err
 		return fmt.Errorf("write: %w", err)
 	}
 	return nil
+}
+
+func WritePrettyTextFile(filename string, message protoreflect.ProtoMessage) error {
+	marshaler := prototext.MarshalOptions{
+		Multiline: true,
+		EmitASCII: true,
+	}
+	data, err := marshaler.Marshal(message)
+	if err != nil {
+		return fmt.Errorf("marshal: %w", err)
+	}
+	if err := ioutil.WriteFile(filename, data, 0644); err != nil {
+		return fmt.Errorf("write: %w", err)
+	}
+	return nil
+}
+
+func FormatProtoText(message protoreflect.ProtoMessage) string {
+	marshaler := prototext.MarshalOptions{
+		Multiline: true,
+		EmitASCII: true,
+	}
+	return marshaler.Format(message)
 }

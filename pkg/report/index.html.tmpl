@@ -12,16 +12,16 @@
         <li><code>--after</code> <a href="{{.AfterFile}}">{{.AfterFile}}</a></li>
     </ul>
 
-    <h2>Actions present only in <code>--before</code>:</h2>
+    <h2>Actions present only in <code>--before</code></h2>
     {{ template "outputPairsTable" .BeforeOnly }}
 
-    <h2>Actions present only in <code>--after</code>:</h2>
+    <h2>Actions present only in <code>--after</code></h2>
     {{ template "outputPairsTable" .AfterOnly }}
 
-    <h2>Non-equal actions:</h2>
+    <h2>Non-equal actions</h2>
     {{ template "outputPairsTable" .NonEqual }}
 
-    <h2>Equal actions:</h2>
+    <h2>Equal actions</h2>
     {{ template "outputPairsTable" .Equal }}
 
 </body>
@@ -48,16 +48,16 @@
 
 {{ define "outputPairRow"}}
 <tr>
-    <td class="mnemonic">{{ .Action.Mnemonic }}</td>
+    <td class="mnemonic"><label class="Label Label--success">{{ .Action.Mnemonic }}</label></td>
     <td class="outputfile">
         <code>{{ .Output }}</code>
         <div class="links">
         <br>
         {{ if .Before }}
-        before: [<a href="{{ .Before.Id }}.json">json</a>] [<a href="{{ .Before.Id }}.txt">txt</a>]
+        before: [<a href="{{ .Before.Id }}.json">json</a>] [<a href="{{ .Before.Id }}.textproto">text</a>]
         {{ end }}
         {{ if .After }}
-        after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.txt">txt</a>]
+        after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.textproto">text</a>]
         {{ end }}
         {{ if and .Before .After }}
         diff: [<a href="{{ .Before.Id }}/{{ .After.Id }}.diff.txt">unidiff</a>] [<a href="{{ .Before.Id }}/{{ .After.Id }}.cmp.txt">go-cmp</a>]

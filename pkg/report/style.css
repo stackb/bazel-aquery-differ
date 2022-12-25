@@ -1,8 +1,10 @@
 :root {
+    --color-border-default: #d0d7de;
     --color-border-muted: hsla(210, 18%, 87%, 1);
     --color-neutral-muted: rgba(175, 184, 193, 0.2);
     --color-accent-fg: #0969da;
     --color-success-fg: #1a7f37;
+    --color-success-emphasis: #2da44e;
 }
 
 a {
@@ -80,6 +82,23 @@ table {
     border: 1px solid var(--color-border-default);
 }
 
+.Label--success {
+    border-color: var(--color-success-emphasis);
+    color: var(--color-success-fg);
+}
+
+.Label,
+.label {
+    border: var(--primer-borderWidth-thin, 1px) solid var(--color-border-default);
+    border-radius: 2em;
+    display: inline-block;
+    font-size: var(--primer-text-body-size-small, 12px);
+    font-weight: var(--base-text-weight-medium, 500);
+    line-height: 18px;
+    padding: 0 7px;
+    white-space: nowrap;
+}
+
 th.mnemonic {
     vertical-align: top;
     text-align: right;
@@ -93,7 +112,6 @@ th.outputfile {
 td.mnemonic {
     vertical-align: top;
     text-align: right;
-    color: var(--color-success-fg);
 }
 
 .links {
