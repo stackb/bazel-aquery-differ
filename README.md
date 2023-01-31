@@ -6,6 +6,10 @@ This is a port of
 <https://github.com/bazelbuild/bazel/blob/master/tools/aquery_differ/aquery_differ.py>
 to golang.
 
+## Installation
+
+Download and unzip a release artifact, or clone and `bazel build //cmd/aquerydiff`.
+
 ## Usage
 
 ```bash
