@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//pkg/generationtest:generationtest.bzl", "aquerydiff_generation_test")
 load(":platforms.bzl", "platforms")
 
