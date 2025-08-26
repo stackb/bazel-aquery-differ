@@ -13,32 +13,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set output
         id: vars
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
-      - name: Mount bazel action cache
-        uses: actions/cache@v3
-        if: always()
+      - uses: bazel-contrib/setup-bazel@0.15.0
         with:
-          path: "~/.cache/bazel"
-          key: bazel
-
-      - name: Mount bazel repo cache
-        uses: actions/cache@v3
-        if: always()
-        with:
-          path: "~/.cache/bazel-repo"
-          key: bazel-repo
+          # Avoid downloading Bazel every time.
+          bazelisk-cache: true
+          # Store build cache per workflow.
+          disk-cache: ${{ github.workflow }}
+          # Share repository cache between workflows.
+          repository-cache: true
 
       - name: build release binaries
         env:
           # Bazelisk will download bazel to here
           XDG_CACHE_HOME: ~/.cache/bazel-repo
         run: >-
-          bazel
+          bazelisk
           --bazelrc=.github/workflows/ci.bazelrc
           --bazelrc=.bazelrc
           build
@@ -59,7 +54,7 @@ jobs:
       - name: Release
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip
