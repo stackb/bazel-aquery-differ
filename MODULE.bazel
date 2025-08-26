@@ -3,15 +3,27 @@ module(
     version = "0.0.0",
 )
 
+# -------------------------------------------------------------------
+# Bazel Dependencies
+# -------------------------------------------------------------------
+
+bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_go", version = "0.57.0")
 bazel_dep(name = "gazelle", version = "0.45.0")
-# bazel_dep(name = "build_stack_rules_proto", version = "0.0.0")
+bazel_dep(name = "build_stack_rules_proto", version = "0.0.0")
 
-# local_path_override(module_name = "build_stack_rules_proto", path = "/Users/pcj/go/src/github.com/stackb/rules_proto")
+# -------------------------------------------------------------------
+# Overrides
+# -------------------------------------------------------------------
 
-###############################################################################
-# Language Go
-###############################################################################
+local_path_override(
+    module_name = "build_stack_rules_proto",
+    path = "/Users/pcj/go/src/github.com/stackb/rules_proto",
+)
+
+# -------------------------------------------------------------------
+# Configuration: Go
+# -------------------------------------------------------------------
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.from_file(go_mod = "//:go.mod")
@@ -23,4 +35,101 @@ use_repo(
     "com_github_google_go_cmp",
     "com_github_pmezard_go_difflib",
     "org_golang_google_protobuf",
+)
+
+# -------------------------------------------------------------------
+# Configuration: Protobuf Deps
+# -------------------------------------------------------------------
+
+proto_repository = use_extension("@build_stack_rules_proto//extensions:proto_repository.bzl", "proto_repository", dev_dependency = True)
+
+proto_repository.archive(
+    name = "googleapis",
+    build_directives = [
+        "gazelle:exclude google/example/endpointsapis/v1",
+        "gazelle:exclude google/cloud/recommendationengine/v1beta1",  # is this a bug?
+        "gazelle:proto_language go enabled true",
+    ],
+    build_file_expunge = True,
+    build_file_proto_mode = "file",
+    cfgs = ["//:rules_proto_config.yaml"],
+    imports = ["@protoapis//:imports.csv"],
+    reresolve_known_proto_imports = True,
+    strip_prefix = "googleapis-02710fa0ea5312d79d7fb986c9c9823fb41049a9",
+    type = "zip",
+    urls = ["https://codeload.github.com/googleapis/googleapis/zip/02710fa0ea5312d79d7fb986c9c9823fb41049a9"],
+)
+
+proto_repository.archive(
+    name = "bazelapis",
+    build_directives = [
+        "gazelle:exclude third_party",
+        "gazelle:proto_language go enable true",
+        "gazelle:prefix github.com/bazelbuild/bazelapis",
+    ],
+    build_file_expunge = True,
+    build_file_proto_mode = "file",
+    cfgs = ["//:rules_proto_config.yaml"],
+    imports = [
+        "@googleapis//:imports.csv",
+        "@protoapis//:imports.csv",
+        "@remoteapis//:imports.csv",
+    ],
+    strip_prefix = "bazel-c2c49f430f2a7c277d21828e146dd6960dc0fbd6",
+    type = "zip",
+    urls = ["https://codeload.github.com/bazelbuild/bazel/zip/c2c49f430f2a7c277d21828e146dd6960dc0fbd6"],
+)
+
+proto_repository.archive(
+    name = "remoteapis",
+    build_directives = [
+        "gazelle:exclude third_party",
+        "gazelle:exclude build/bazel/remote/asset/v1",
+        "gazelle:exclude build/bazel/remote/logstream/v1",
+        "gazelle:proto_language go enable true",
+        "gazelle:proto_plugin protoc-gen-go option Mbuild/bazel/remote/execution/v2/remote_execution.proto=github.com/bazelbuild/remote-apis/build/bazel/remote/execution/v2",
+        "gazelle:proto_plugin protoc-gen-go option Mbuild/bazel/semver/semver.proto=github.com/bazelbuild/remote-apis/build/bazel/semver",
+        "gazelle:proto_plugin protoc-gen-go-grpc option Mbuild/bazel/remote/execution/v2/remote_execution.proto=github.com/bazelbuild/remote-apis/build/bazel/remote/execution/v2",
+        "gazelle:proto_plugin protoc-gen-go-grpc option Mbuild/bazel/semver/semver.proto=github.com/bazelbuild/remote-apis/build/bazel/semver",
+    ],
+    build_file_expunge = True,
+    build_file_proto_mode = "file",
+    cfgs = ["//:rules_proto_config.yaml"],
+    imports = [
+        "@googleapis//:imports.csv",
+        "@protoapis//:imports.csv",
+    ],
+    strip_prefix = "remote-apis-636121a32fa7b9114311374e4786597d8e7a69f3",
+    type = "zip",
+    urls = ["https://codeload.github.com/bazelbuild/remote-apis/zip/636121a32fa7b9114311374e4786597d8e7a69f3"],
+)
+
+proto_repository.archive(
+    name = "protoapis",
+    build_directives = [
+        "gazelle:exclude testdata",
+        "gazelle:exclude google/protobuf/compiler/ruby",
+        "gazelle:proto_language go enable true",
+    ],
+    build_file_expunge = True,
+    build_file_proto_mode = "file",
+    cfgs = ["//:rules_proto_config.yaml"],
+    deleted_files = [
+        "google/protobuf/unittest_custom_options.proto",
+        "google/protobuf/map_lite_unittest.proto",
+        "google/protobuf/map_proto2_unittest.proto",
+        "google/protobuf/test_messages_proto2.proto",
+        "google/protobuf/test_messages_proto3.proto",
+    ],
+    strip_prefix = "protobuf-9650e9fe8f737efcad485c2a8e6e696186ae3862/src",
+    type = "zip",
+    urls = ["https://codeload.github.com/protocolbuffers/protobuf/zip/9650e9fe8f737efcad485c2a8e6e696186ae3862"],
+)
+
+use_repo(
+    proto_repository,
+    "bazelapis",
+    "remoteapis",
+    "googleapis",
+    "protoapis",
 )

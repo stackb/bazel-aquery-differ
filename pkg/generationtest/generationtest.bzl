@@ -2,7 +2,7 @@
 Test for generating rules from aquerydiff.
 """
 
-load("@io_bazel_rules_go//go:def.bzl", "go_test")
+load("@rules_go//go:def.bzl", "go_test")
 
 def aquerydiff_generation_test(name, aquerydiff_binary, test_data, build_in_suffix = ".in", build_out_suffix = ".out", timeout_seconds = 2, size = None):
     """
@@ -43,7 +43,7 @@ def aquerydiff_generation_test(name, aquerydiff_binary, test_data, build_in_suff
         srcs = [Label("//pkg/generationtest:generation_test.go")],
         deps = [
             Label("//pkg/testtools"),
-            "@io_bazel_rules_go//go/tools/bazel:go_default_library",
+            "@rules_go//go/tools/bazel:go_default_library",
         ],
         args = [
             "-aquerydiff_binary_path=$(rootpath %s)" % aquerydiff_binary,
