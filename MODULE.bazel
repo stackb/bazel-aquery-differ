@@ -55,6 +55,8 @@ proto_repository.archive(
     build_directives = [
         "gazelle:gomodules_target_dir ROOT",
         "gazelle:exclude google/example",
+        "gazelle:exclude google/ads/googleads/v7/services",
+        "gazelle:exclude google/ads/googleads/v8/services",
         "gazelle:proto_language go enabled true",
     ],
     sha256 = "95da12951c7d570980d5152f6cca9e1cb795ddc6b6dd7e9423bdffde28290f7a",
@@ -85,11 +87,6 @@ proto_repository.archive(
         "@protoapis//:imports.csv",
         "@remoteapis//:imports.csv",
     ],
-    # deleted_files = [
-    #     "src/tools/android/java/com/google/devtools/build/android/proto/Configuration.proto",
-    #     "src/tools/android/java/com/google/devtools/build/android/desugar/langmodel/desugar_method_attr.proto",
-    #     "src/tools/android/java/com/google/devtools/build/android/desugar/langmodel/desugar_method_attr.proto",
-    # ],
     strip_prefix = "bazel-c2c49f430f2a7c277d21828e146dd6960dc0fbd6",
     type = "zip",
     urls = ["https://codeload.github.com/bazelbuild/bazel/zip/c2c49f430f2a7c277d21828e146dd6960dc0fbd6"],
