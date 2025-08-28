@@ -35,7 +35,10 @@ plugins:
       - Msrc/main/protobuf/worker_protocol.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/worker_protocol
       - Msrc/main/protobuf/xcode_config.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/xcode_config
     deps:
+      - "@org_golang_google_protobuf//encoding/protojson:protojson"
+      - "@org_golang_google_protobuf//proto"
       - "@org_golang_google_protobuf//reflect/protoreflect"
+      - "@org_golang_google_protobuf//reflect/protoregistry"
       - "@org_golang_google_protobuf//runtime/protoimpl"
   - name: protoc-gen-go-grpc
     implementation: grpc:grpc-go:protoc-gen-go-grpc
@@ -52,12 +55,14 @@ rules:
   - name: proto_compile
     implementation: stackb:rules_proto:proto_compile
     visibility:
-      -  //visibility:public
+      - //visibility:public
   - name: proto_go_library
     enabled: true
     implementation: stackb:rules_proto:proto_go_library
+    deps:
+      - "@org_golang_google_protobuf//proto"
     visibility:
-      -  //visibility:public
+      - //visibility:public
     resolves:
       - "google/protobuf/([a-z]+).proto @org_golang_google_protobuf//types/known/${1}pb"
       - "google/protobuf/(field_mask).proto @org_golang_google_protobuf//types/known/fieldmaskpb"
@@ -65,11 +70,11 @@ rules:
   - name: proto_closure_js_library
     implementation: stackb:rules_proto:proto_closure_js_library
     visibility:
-      -  //visibility:public
+      - //visibility:public
   - name: grpc_closure_js_library
     implementation: stackb:rules_proto:grpc_closure_js_library
     visibility:
-      -  //visibility:public
+      - //visibility:public
 languages:
   - name: go
     plugins:
