@@ -1,3 +1,5 @@
+load("@build_stack_rules_proto//rules:proto_gazelle.bzl", "proto_gazelle")
+load("@build_stack_rules_proto//rules/go:module.bzl", "go_modules", "go_vendor")
 load("@gazelle//:def.bzl", "gazelle_binary")
 
 # -- Gazelle language "walk" ---
@@ -27,7 +29,10 @@ load("@gazelle//:def.bzl", "gazelle_binary")
 # gazelle:proto_language go plugin protoc-gen-go-grpc
 # gazelle:proto_language go rule proto_compile
 
-load("@build_stack_rules_proto//rules:proto_gazelle.bzl", "proto_gazelle")
+# -- Gazelle language "gomodules" ---
+# gazelle:gomodules_target_dir ROOT
+# gazelle:gomodules_go_version 1.23.1
+# gazelle:go_generate_proto false
 
 gazelle_binary(
     name = "gazelle-protobuf",
@@ -35,6 +40,7 @@ gazelle_binary(
         "@gazelle//language/proto:go_default_library",
         "@gazelle//language/go:go_default_library",
         "@build_stack_rules_proto//language/protobuf",
+        "@build_stack_rules_proto//language/gomodules",
     ],
 )
 
@@ -49,4 +55,14 @@ proto_gazelle(
         "@protoapis//:imports.csv",
         "@remoteapis//:imports.csv",
     ],
+)
+
+go_modules(
+    name = "go_modules",
+    deps = ["@bazel-aquery-differ//build/stack/bazel/aquery/differ:go_module"],
+)
+
+go_vendor(
+    name = "go_vendor",
+    deps = [],
 )
