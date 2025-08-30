@@ -3,7 +3,9 @@ package action
 import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/pmezard/go-difflib/difflib"
+	"github.com/hexops/gotextdiff"
+	"github.com/hexops/gotextdiff/myers"
+	"github.com/hexops/gotextdiff/span"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
@@ -26,7 +28,7 @@ func (p *OutputPair) Diff() string {
 	)
 }
 
-func (p *OutputPair) UnifiedDiff() string {
+func (p *OutputPair) UnifiedDiff() gotextdiff.Unified {
 	var a string
 	var b string
 	if p.Before != nil {
@@ -35,15 +37,8 @@ func (p *OutputPair) UnifiedDiff() string {
 	if p.After != nil {
 		b = protobuf.FormatProtoText(p.After)
 	}
-	diff := difflib.UnifiedDiff{
-		A:        difflib.SplitLines(a),
-		B:        difflib.SplitLines(b),
-		FromFile: p.Output,
-		ToFile:   p.Output,
-		Context:  3,
-	}
-	text, _ := difflib.GetUnifiedDiffString(diff)
-	return text
+	edits := myers.ComputeEdits(span.URI(p.Output), a, b)
+	return gotextdiff.ToUnified(p.Output, p.Output, a, edits)
 }
 
 type OutputPairs []*OutputPair

@@ -1,9 +1,11 @@
 package report
 
 import (
+	"fmt"
 	"io"
 	"io/fs"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -87,6 +89,8 @@ func (r *Html) emitFile(dir string, original string) error {
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
+
 	return copyFile(original, filename)
 }
 
@@ -99,6 +103,7 @@ func (r *Html) emitActionJsonproto(dir string, action *dipb.Action) error {
 	if err := protobuf.WritePrettyJSONFile(filename, action); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
 	return nil
 }
 
@@ -111,6 +116,7 @@ func (r *Html) emitActionTextproto(dir string, a *dipb.Action) error {
 	if err := protobuf.WritePrettyTextFile(filename, a); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
 	return nil
 }
 
@@ -120,9 +126,13 @@ func (r *Html) emitOutputPairDiff(dir string, pair *action.OutputPair) error {
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err
 	}
-	if err := os.WriteFile(filename+".diff.txt", []byte(pair.UnifiedDiff()), fs.ModePerm); err != nil {
+
+	log.Printf("Unified Diff %s", filename)
+	unifiedDiff := fmt.Sprint(pair.UnifiedDiff())
+	if err := os.WriteFile(filename+".diff.txt", []byte(unifiedDiff), fs.ModePerm); err != nil {
 		return err
 	}
+	log.Printf("Cmp Diff %s", filename)
 	if err := os.WriteFile(filename+".cmp.txt", []byte(pair.Diff()), fs.ModePerm); err != nil {
 		return err
 	}
@@ -135,11 +145,14 @@ func (r *Html) emitIndexHtml(dir string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("Rendering html: %s", filename)
+
 	return r.renderIndexHtml(out)
 }
 
 func (r *Html) emitStyleCss(dir string) error {
 	filename := filepath.Join(dir, "style.css")
+	log.Printf("Rendering css: %s", filename)
 	return ioutil.WriteFile(filename, styleCss, os.ModePerm)
 }
 

@@ -1,10 +1,10 @@
-build --noincompatible_disallow_ctx_resolve_tools
+common --noincompatible_disallow_ctx_resolve_tools
 
 # Disk cache configuration
-build --disk_cache=~/.cache/bazel-disk-cache
+common --disk_cache=~/.cache/bazel-disk-cache
 
 # Repository cache configuration  
-build --repository_cache=~/.cache/bazel-repository-cache
+common --repository_cache=~/.cache/bazel-repository-cache
 
 # remote cache without network
-build --remote_cache_async
+common --remote_cache_async

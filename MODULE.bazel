@@ -41,6 +41,7 @@ use_repo(
     "com_github_google_go_cmp",
     "com_github_pmezard_go_difflib",
     "org_golang_google_protobuf",
+    "com_github_hexops_gotextdiff",
 )
 
 # -------------------------------------------------------------------

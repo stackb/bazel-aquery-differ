@@ -47,13 +47,13 @@ func run(args []string) error {
 	if err := protobuf.ReadFile(config.beforeFile, &before); err != nil {
 		return err
 	}
+	log.Printf("Loaded %s (%d actions)", config.beforeFile, len(before.Actions))
 
 	var after anpb.ActionGraphContainer
 	if err := protobuf.ReadFile(config.afterFile, &after); err != nil {
 		return err
 	}
-
-	// log.Println("diffing %s <> %s", config.beforeFile, config.afterFile)
+	log.Printf("Loaded %s (%d actions)", config.afterFile, len(after.Actions))
 
 	beforeGraph, err := action.NewGraph("before", &before)
 	if err != nil {
@@ -68,7 +68,11 @@ func run(args []string) error {
 	var equal action.OutputPairs
 	var nonEqual action.OutputPairs
 
-	for _, v := range both {
+	log.Printf("Partitioning complete: (only before: %d, only after: %d, both: %d)", len(beforeOnly), len(afterOnly), len(both))
+
+	for i, v := range both {
+		log.Printf("Diffing %s (%d/%d)", v.Action.Mnemonic, i+1, len(both))
+
 		if v.Diff() == "" {
 			equal = append(equal, v)
 		} else {
@@ -86,6 +90,9 @@ func run(args []string) error {
 		Equal:      equal,
 		NonEqual:   nonEqual,
 	}
+
+	log.Printf("Generating report in: %s", config.reportDir)
+
 	if err := r.Emit(config.reportDir); err != nil {
 		return fmt.Errorf("generating report: %w", err)
 	}

@@ -56,6 +56,10 @@ rules:
     implementation: stackb:rules_proto:proto_compile
     visibility:
       - //visibility:public
+  - name: proto_compiled_sources
+    implementation: stackb:rules_proto:proto_compiled_sources
+    visibility:
+      - //visibility:public
   - name: proto_go_library
     enabled: true
     implementation: stackb:rules_proto:proto_go_library
@@ -67,14 +71,6 @@ rules:
       - "google/protobuf/([a-z]+).proto @org_golang_google_protobuf//types/known/${1}pb"
       - "google/protobuf/(field_mask).proto @org_golang_google_protobuf//types/known/fieldmaskpb"
       - "google/protobuf/(descriptor|plugin).proto @org_golang_google_protobuf//types/${1}pb"
-  - name: proto_closure_js_library
-    implementation: stackb:rules_proto:proto_closure_js_library
-    visibility:
-      - //visibility:public
-  - name: grpc_closure_js_library
-    implementation: stackb:rules_proto:grpc_closure_js_library
-    visibility:
-      - //visibility:public
 languages:
   - name: go
     plugins:
@@ -83,13 +79,4 @@ languages:
     rules:
       - proto_compile
       - proto_go_library
-    enabled: false
-  - name: closure
-    plugins:
-      - closure_js
-      - protoc-gen-grpc-js
-    rules:
-      - proto_compile
-      - proto_closure_js_library
-      - grpc_closure_js_library
     enabled: false
