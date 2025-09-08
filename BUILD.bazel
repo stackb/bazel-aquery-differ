@@ -1,5 +1,5 @@
 load("@build_stack_rules_proto//rules:proto_gazelle.bzl", "proto_gazelle")
-load("@build_stack_rules_proto//rules/go:module.bzl", "go_modules", "go_vendor")
+load("@build_stack_rules_proto//rules/go:proto_go_modules.bzl", "proto_go_modules")
 load("@gazelle//:def.bzl", "gazelle_binary")
 
 # -- Gazelle language "walk" ---
@@ -27,7 +27,7 @@ gazelle_binary(
         "@gazelle//language/proto:go_default_library",
         "@gazelle//language/go:go_default_library",
         "@build_stack_rules_proto//language/protobuf",
-        "@build_stack_rules_proto//language/gomodules",
+        "@build_stack_rules_proto//language/proto_go_modules",
     ],
 )
 
@@ -44,23 +44,17 @@ proto_gazelle(
     ],
 )
 
-go_vendor(
-    name = "go_vendor",
+proto_go_modules(
+    name = "proto_go_modules",
+    go_version = "go.mod",
+    imports = [
+        "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2",
+        # "github.com/bazelbuild/remoteapis/build/bazel/remote/execution/v2/remote_execution",
+    ],
     modules = [
-        "@protoapis//google/protobuf:go_module",
+        "@protoapis//:proto_go_modules",
+        "@bazelapis//:proto_go_modules",
+        "@remoteapis//:proto_go_modules",
+        "@googleapis//:proto_go_modules",
     ],
-    deps = [
-        "//build/stack/bazel/aquery/differ:differ_go_proto",
-        "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
-        "@bazelapis//src/main/protobuf:build_go_proto",
-        # "@protoapis//google/protobuf:any_go_proto",
-        # "@protoapis//google/protobuf:descriptor_go_proto",
-        # "@protoapis//google/protobuf:struct_go_proto",
-        # "@protoapis//google/protobuf:timestamp_go_proto",
-    ],
-)
-
-go_modules(
-    name = "go_modules",
-    deps = ["@bazel-aquery-differ//build/stack/bazel/aquery/differ:go_module"],
 )
