@@ -38,10 +38,10 @@ go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
 use_repo(
     go_deps,
+    "com_github_bazelbuild_bazelapis_src_main_protobuf_analysis_v2",
     "com_github_google_go_cmp",
-    "com_github_pmezard_go_difflib",
-    "org_golang_google_protobuf",
     "com_github_hexops_gotextdiff",
+    "org_golang_google_protobuf",
 )
 
 # -------------------------------------------------------------------
@@ -49,7 +49,6 @@ use_repo(
 # -------------------------------------------------------------------
 
 proto_repository = use_extension("@build_stack_rules_proto//extensions:proto_repository.bzl", "proto_repository", dev_dependency = True)
-
 proto_repository.archive(
     name = "protobufapis",
     build_directives = [
@@ -65,8 +64,8 @@ proto_repository.archive(
         "gazelle:proto_go_modules_index_kind proto_go_library",
         "gazelle:proto_language scala enable true",
     ],
-    build_file_proto_mode = "file",
     build_file_generation = "clean",
+    build_file_proto_mode = "file",
     cfgs = ["@//:rules_proto_config.yaml"],
     deleted_files = [
         "google/protobuf/*test*.proto",
@@ -97,7 +96,6 @@ proto_repository.archive(
 # Size: 11515047 (12 MB)
 proto_repository.archive(
     name = "googleapis",
-    build_file_generation = "clean",
     build_directives = [
         "gazelle:exclude google/ads/googleads/v19/services",
         "gazelle:exclude google/ads/googleads/v20/services",
@@ -116,6 +114,7 @@ proto_repository.archive(
         "gazelle:proto_language python enable true",
         "gazelle:proto_language scala enable true",
     ],
+    build_file_generation = "clean",
     build_file_proto_mode = "file",
     cfgs = ["//:rules_proto_config.yaml"],
     imports = ["@protobufapis//:imports.csv"],
@@ -189,12 +188,12 @@ proto_repository.archive(
         "gazelle:proto_plugin protoc-gen-go option Msrc/main/protobuf/bazel_output_service.proto=github.com/bazelbuild/bazel/src/main/protobuf/bazel_output_service",
         "gazelle:proto_plugin protoc-gen-go option Msrc/main/protobuf/bazel_output_service_rev2.proto=github.com/bazelbuild/bazel/src/main/protobuf/bazel_output_service_rev2",
     ],
-    deleted_files = [
-        "src/main/protobuf/bazel_output_service.proto",
-    ],
     build_file_generation = "clean",
     build_file_proto_mode = "file",
     cfgs = ["//:rules_proto_config.yaml"],
+    deleted_files = [
+        "src/main/protobuf/bazel_output_service.proto",
+    ],
     imports = [
         "@googleapis//:imports.csv",
         "@protobufapis//:imports.csv",
@@ -204,7 +203,6 @@ proto_repository.archive(
     strip_prefix = "bazel-526225e836561307065f2389c9e2163064fda084",
     urls = ["https://github.com/bazelbuild/bazel/archive/526225e836561307065f2389c9e2163064fda084.tar.gz"],
 )
-
 use_repo(
     proto_repository,
     "bazelapis",
