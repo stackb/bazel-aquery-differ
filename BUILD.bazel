@@ -39,22 +39,22 @@ proto_gazelle(
     imports = [
         "@bazelapis//:imports.csv",
         "@googleapis//:imports.csv",
-        "@protoapis//:imports.csv",
+        "@protobufapis//:imports.csv",
         "@remoteapis//:imports.csv",
     ],
 )
 
 proto_go_modules(
     name = "proto_go_modules",
-    go_version = "go.mod",
     imports = [
         "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2",
-        # "github.com/bazelbuild/remoteapis/build/bazel/remote/execution/v2/remote_execution",
+        # "github.com/bazelbuild/bazelapis/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream/build_event_stream",
     ],
     modules = [
-        "@protoapis//:proto_go_modules",
+        "@protobufapis//:proto_go_modules",
         "@bazelapis//:proto_go_modules",
         "@remoteapis//:proto_go_modules",
         "@googleapis//:proto_go_modules",
     ],
+    srcroot = "genproto",
 )

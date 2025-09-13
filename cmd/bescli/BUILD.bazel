@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "bescli_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/stackb/bazel-aquery-differ/cmd/bescli",
+    visibility = ["//visibility:private"],
+    deps = ["@bazelapis//src/main/java/com/google/devtools/build/lib/buildeventstream/proto:build_event_stream_go_proto"],
+)
+
+go_binary(
+    name = "bescli",
+    embed = [":bescli_lib"],
+    visibility = ["//visibility:public"],
+)
