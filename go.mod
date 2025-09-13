@@ -3,7 +3,6 @@ module github.com/stackb/bazel-aquery-differ
 go 1.23.1
 
 require (
-	github.com/bazelbuild/bazelapis/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream/build_event_stream v0.0.0-00010101000000-000000000000
 	github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2 v0.0.0-00010101000000-000000000000
 	github.com/bazelbuild/rules_go v0.57.0
 	github.com/google/go-cmp v0.7.0
@@ -12,15 +11,8 @@ require (
 )
 
 require (
-	github.com/bazelbuild/bazel/src/main/java/com/google/devtools/build/lib/packages/metrics v0.0.0-00010101000000-000000000000 // indirect
 	github.com/bazelbuild/bazel/src/main/protobuf/stardoc_output v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazel/src/main/protobuf/strategy_policy v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazelapis/src/main/protobuf/action_cache v0.0.0-00010101000000-000000000000 // indirect
 	github.com/bazelbuild/bazelapis/src/main/protobuf/build v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazelapis/src/main/protobuf/command_line v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazelapis/src/main/protobuf/failure_details v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazelapis/src/main/protobuf/invocation_policy v0.0.0-00010101000000-000000000000 // indirect
-	github.com/bazelbuild/bazelapis/src/main/protobuf/option_filters v0.0.0-00010101000000-000000000000 // indirect
 )
 
 replace github.com/bazelbuild/bazelapis/src/main/protobuf/build => ./genproto/github.com/bazelbuild/bazelapis/src/main/protobuf/build
