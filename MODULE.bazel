@@ -10,22 +10,7 @@ module(
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_go", version = "0.57.0")
 bazel_dep(name = "gazelle", version = "0.45.0")
-bazel_dep(name = "build_stack_rules_proto", version = "0.0.0")
-
-# -------------------------------------------------------------------
-# Overrides
-# -------------------------------------------------------------------
-
-local_path_override(
-    module_name = "build_stack_rules_proto",
-    path = "/Users/pcj/go/src/github.com/stackb/rules_proto",
-)
-
-# git_override(
-#     module_name = "build_stack_rules_proto",
-#     commit = "8f5db40a17f626f19d601cacbe5a1e27846bb5e4",
-#     remote = "https://github.com/stackb/rules_proto.git",
-# )
+bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
 
 # -------------------------------------------------------------------
 # Configuration: Go

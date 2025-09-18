@@ -4,6 +4,7 @@ load("@gazelle//:def.bzl", "gazelle_binary")
 
 # -- Gazelle language "walk" ---
 # gazelle:exclude vendor
+# gazelle:exclude genproto
 
 # -- Gazelle language "resolve" ---
 # gazelle:resolve go go github.com/stackb/rules_proto/pkg/protoc @build_stack_rules_proto//pkg/protoc
