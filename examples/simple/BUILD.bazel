@@ -2,7 +2,7 @@ load("//rules:defs.bzl", "aquery_diff", "aquery_git_diff")
 
 aquery_git_diff(
     name = "git_diff",
-    after = "cb16fe09382e2d88e877d8fd819e9d0377ada663",
+    after = "77bac585176f97d3f482a702db3e1155900fbacd",
     before = "a771ee789340aa3164d86491728828afeb5973cb",
     target = "deps(//cmd/aquerydiff)",
 )
