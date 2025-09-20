@@ -131,7 +131,7 @@ func (r *Html) emitOutputPairDiff(dir string, pair *action.OutputPair) error {
 	log.Printf("Unified Diff %s", filename)
 	unifiedDiff := fmt.Sprint(pair.UnifiedDiff())
 	if unifiedDiff == "" {
-		unifiedDiff = "EQUAL"
+		unifiedDiff = "NONE"
 	}
 	if err := os.WriteFile(filename+".diff.txt", []byte(unifiedDiff), fs.ModePerm); err != nil {
 		return err
@@ -139,7 +139,7 @@ func (r *Html) emitOutputPairDiff(dir string, pair *action.OutputPair) error {
 	log.Printf("Cmp Diff %s", filename)
 	cmpDiff := pair.Diff()
 	if cmpDiff == "" {
-		cmpDiff = "EQUAL"
+		cmpDiff = "NONE"
 	}
 	if err := os.WriteFile(filename+".cmp.txt", []byte(cmpDiff), fs.ModePerm); err != nil {
 		return err

@@ -12,6 +12,11 @@ bazel_dep(name = "rules_go", version = "0.57.0")
 bazel_dep(name = "gazelle", version = "0.45.0")
 bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
 
+local_path_override(
+    module_name = "rules_go",
+    path = "/Users/pcj/go/src/github.com/bazel-contrib/rules_go",
+)
+
 # -------------------------------------------------------------------
 # Configuration: Go
 # -------------------------------------------------------------------
