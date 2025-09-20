@@ -100,3 +100,86 @@ aquery_git_diff = rule(
     },
     executable = True,
 )
+
+def _aquery_diff_impl(ctx):
+    files = [ctx.outputs.executable]
+    runfiles = [ctx.executable._tool, ctx.file.before, ctx.file.after]
+
+    ctx.actions.write(
+        ctx.outputs.executable,
+        """#!/bin/bash
+set -euox pipefail
+
+# switch to WORKSPACE
+cwd=$(PWD)
+before="$cwd/{before}"
+after="$cwd/{after}"
+
+cd $BUILD_WORKING_DIRECTORY
+
+# run the tool
+"$cwd/{tool}" \
+    --target '{target}' \
+    --before "$before" \
+    --after "$after" \
+    --report_dir=$cwd \
+    {serve_flag} \
+    {open_flag} \
+
+""".format(
+            bazel = ctx.attr.bazel,
+            tool = ctx.executable._tool.short_path,
+            target = ctx.attr.target,
+            before = ctx.file.before.short_path,
+            after = ctx.file.after.short_path,
+            serve_flag = "--serve" if ctx.attr.serve else "",
+            open_flag = "--open" if ctx.attr.open else "",
+        ),
+        is_executable = True,
+    )
+
+    return [
+        DefaultInfo(
+            files = depset(files),
+            runfiles = ctx.runfiles(files = runfiles),
+        ),
+    ]
+
+aquery_diff = rule(
+    implementation = _aquery_diff_impl,
+    attrs = {
+        "before": attr.label(
+            doc = "the baseline aquery file",
+            allow_single_file = True,
+            mandatory = True,
+        ),
+        "after": attr.label(
+            doc = "the comparison aquery file",
+            allow_single_file = True,
+            mandatory = False,
+        ),
+        "target": attr.string(
+            doc = "bazel target to aquery",
+            mandatory = True,
+        ),
+        "bazel": attr.string(
+            doc = "the bazel executable",
+            default = "bazel",
+        ),
+        "serve": attr.bool(
+            doc = "start webserver",
+            default = True,
+        ),
+        "open": attr.bool(
+            doc = "open browser to webserver URL",
+            default = True,
+        ),
+        "_tool": attr.label(
+            doc = "the aquerydiff tool",
+            cfg = "exec",
+            default = "//cmd/aquerydiff",
+            executable = True,
+        ),
+    },
+    executable = True,
+)

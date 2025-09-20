@@ -18,7 +18,7 @@ func unmarshalerForFilename(filename string) (unmarshaler, string) {
 	if filepath.Ext(filename) == ".json" {
 		return protojson.Unmarshal, "json"
 	}
-	if filepath.Ext(filename) == ".text" {
+	if filepath.Ext(filename) == ".text" || filepath.Ext(filename) == ".pbtext" || filepath.Ext(filename) == ".textproto" {
 		return prototext.Unmarshal, "text"
 	}
 	return proto.Unmarshal, "proto"

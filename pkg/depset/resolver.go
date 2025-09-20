@@ -2,6 +2,7 @@ package depset
 
 import (
 	"fmt"
+	"sort"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
@@ -62,8 +63,26 @@ func (r *Resolver) Resolve(in *anpb.DepSetOfFiles) ([]string, error) {
 		}
 		artifacts = append(artifacts, files...)
 	}
-
-	r.depSetArtifacts[in.Id] = artifacts
+	
+	r.depSetArtifacts[in.Id] = deduplicateAndSort(artifacts)
 
 	return artifacts, nil
+}
+
+
+// deduplicateAndSort removes duplicate entries and sorts the list
+func deduplicateAndSort(in []string) (out []string) {
+	if len(in) == 0 {
+		return in
+	}
+	seen := make(map[string]bool)
+	for _, v := range in {
+		if seen[v] {
+			continue
+		}
+		seen[v] = true
+		out = append(out, v)
+	}
+	sort.Strings(out)
+	return
 }

@@ -48,7 +48,6 @@ func NewAction(id string, in *anpb.Action, artifacts artifact.PathMap, targets t
 		ExecutionPlatform:    in.ExecutionPlatform,
 		TemplateContent:      in.TemplateContent,
 		Substitutions:        in.Substitutions,
-		// FileContents:         in.FileContent,
 	}
 
 	return out, nil

@@ -1,8 +1,15 @@
-load("//rules:defs.bzl", "aquery_git_diff")
+load("//rules:defs.bzl", "aquery_diff", "aquery_git_diff")
 
 aquery_git_diff(
-    name = "simple",
-    after = "2d7eef6459591c7b1e2c7e6a3df960b29f36ee96",
+    name = "git_diff",
+    after = "cb16fe09382e2d88e877d8fd819e9d0377ada663",
     before = "a771ee789340aa3164d86491728828afeb5973cb",
+    target = "deps(//cmd/aquerydiff)",
+)
+
+aquery_diff(
+    name = "diff",
+    after = "after.pbtext",
+    before = "before.pbtext",
     target = "deps(//cmd/aquerydiff)",
 )
