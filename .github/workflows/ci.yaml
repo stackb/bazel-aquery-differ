@@ -21,10 +21,6 @@ jobs:
         with:
           # Avoid downloading Bazel every time.
           bazelisk-cache: true
-          # Store build cache per workflow.
-          disk-cache: true
-          # Share repository cache between workflows.
-          repository-cache: true
       - name: bazel build
         run: >-
           bazelisk
