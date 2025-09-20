@@ -4,5 +4,5 @@ aquery_git_diff(
     name = "simple",
     after = "8b645fc7cdd68d44bb456b19d2b816fede695e19",
     before = "a771ee789340aa3164d86491728828afeb5973cb",
-    target = "//cmd/aquerydiff",
+    target = "deps(//cmd/aquerydiff)",
 )
