@@ -69,9 +69,11 @@ aquery_git_diff = rule(
     attrs = {
         "before": attr.string(
             doc = "the baseline git commit",
+            mandatory = True,
         ),
         "after": attr.string(
             doc = "the after git commit",
+            mandatory = True,
         ),
         "target": attr.string(
             doc = "bazel target to aquery",
