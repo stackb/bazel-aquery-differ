@@ -29,26 +29,26 @@ echo "Original commit: $original_commit"
 # checkout before commit and run aquery
 echo "Checking out before commit: {before_commit}"
 git checkout {before_commit}
-{bazel} aquery --output=proto {targets} > "$tmpdir/before.pb"
+{bazel} aquery --output=proto {target} > "$tmpdir/before.pb"
 
 # checkout after commit and run aquery  
 echo "Checking out after commit: {after_commit}"
 git checkout {after_commit}
-{bazel} aquery --output=proto {targets} > "$tmpdir/after.pb"
+{bazel} aquery --output=proto {target} > "$tmpdir/after.pb"
 
 # restore original commit
 echo "Restoring original commit: $original_commit"
 git checkout $original_commit
 
 # run the tool
-"$cwd/{tool}" --before "$tmpdir/before.pb" --after "$tmpdir/after.pb" --report_dir=$cwd {serve_flag} {open_flag}
+"$cwd/{tool}" --target '{target}' --before "$tmpdir/before.pb" --after "$tmpdir/after.pb" --report_dir=$cwd {serve_flag} {open_flag}
 
 # cleanup temporary directory
 rm -rf "$tmpdir"
 """.format(
             bazel = ctx.attr.bazel,
             tool = ctx.executable._tool.short_path,
-            targets = " ".join(ctx.attr.targets),
+            target = ctx.attr.target,
             before_commit = ctx.attr.before,
             after_commit = ctx.attr.after,
             serve_flag = "--serve" if ctx.attr.serve else "",
@@ -73,8 +73,8 @@ aquery_git_diff = rule(
         "after": attr.string(
             doc = "the after git commit",
         ),
-        "targets": attr.string_list(
-            doc = "list of targets to build",
+        "target": attr.string(
+            doc = "bazel target to aquery",
             mandatory = True,
         ),
         "bazel": attr.string(

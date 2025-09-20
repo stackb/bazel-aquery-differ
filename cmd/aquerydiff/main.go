@@ -27,6 +27,7 @@ func run(args []string) error {
 	var config config
 
 	flags := flag.NewFlagSet("aquerydiff", flag.ExitOnError)
+	flags.StringVar(&config.target, "target", "", "the target under analysis")
 	flags.StringVar(&config.beforeFile, "before", "", "filepath to aquery file (before)")
 	flags.StringVar(&config.afterFile, "after", "", "filepath to aquery file (after)")
 	flags.StringVar(&config.reportDir, "report_dir", "", "path to directory where report files should be written")
@@ -87,6 +88,7 @@ func run(args []string) error {
 	}
 
 	r := report.Html{
+		Target:     config.target,
 		BeforeFile: config.beforeFile,
 		AfterFile:  config.afterFile,
 		Before:     beforeGraph,

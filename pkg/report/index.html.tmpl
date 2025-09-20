@@ -1,12 +1,12 @@
 <html>
 
 <head>
-    <title>Aquerydiff Report</title>
+    <title>Aquerydiff {{.Target}}</title>
     <link href="/style.css" rel="stylesheet">
 </head>
 
 <body class="markdown-body container-lg">
-    <h1><code>aquerydiff</code> report</h1>
+    <h1><code>aquerydiff</code> <code>{{.Target}}</code></h1>
     <ul>
         <li><code>--before</code> <a href="{{.BeforeFile}}">{{.BeforeFile}}</a></li>
         <li><code>--after</code> <a href="{{.AfterFile}}">{{.AfterFile}}</a></li>

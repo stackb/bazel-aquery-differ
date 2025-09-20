@@ -17,6 +17,7 @@ import (
 )
 
 type Html struct {
+	Target     string
 	BeforeFile string
 	AfterFile  string
 	Before     *action.Graph
