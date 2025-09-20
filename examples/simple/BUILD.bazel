@@ -1,0 +1,10 @@
+load("//rules:defs.bzl", "aquery_git_diff")
+
+aquery_git_diff(
+    name = "simple",
+    after = "HEAD^",
+    before = "HEAD",
+    targets = [
+        "//cmd/aquerydiff",
+    ],
+)
