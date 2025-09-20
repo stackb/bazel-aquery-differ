@@ -14,7 +14,7 @@ cd $BUILD_WORKING_DIRECTORY
 # ensure no uncommitted changes
 git diff --exit-code --quiet && git diff --cached --exit-code --quiet || {{
     echo "Error: Uncommitted changes detected"
-    # exit 1
+    exit 1
 }}
 
 # create temporary directory for aquery files
