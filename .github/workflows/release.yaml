@@ -1,64 +1,37 @@
 # Cut a release whenever a new tag is pushed to the repo.
-# You should use an annotated tag, like `git tag -a v1.2.3`
-# and put the release notes into the commit message for the tag.
 name: Release
-
 on:
+  # Can be triggered from the tag.yaml workflow
+  workflow_call:
+    inputs:
+      tag_name:
+        required: true
+        type: string
+    secrets:
+      publish_token:
+        required: true
+  # Or, developers can manually push a tag from their clone
   push:
     tags:
       - "v*.*.*"
-
+permissions:
+  id-token: write
+  attestations: write
+  contents: write
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set output
-        id: vars
-        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-
-      - uses: bazel-contrib/setup-bazel@0.15.0
-        with:
-          # Avoid downloading Bazel every time.
-          bazelisk-cache: true
-          # Store build cache per workflow.
-          disk-cache: ${{ github.workflow }}
-          # Share repository cache between workflows.
-          repository-cache: true
-
-      - name: build release binaries
-        env:
-          # Bazelisk will download bazel to here
-          XDG_CACHE_HOME: ~/.cache/bazel-repo
-        run: >-
-          bazelisk
-          --bazelrc=.github/workflows/ci.bazelrc
-          --bazelrc=.bazelrc
-          build
-          //cmd/aquerydiff:all
-
-      - name: Prepare release assets
-        env:
-          # Bazelisk will download bazel to here
-          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        run: >-
-          cp bazel-bin/cmd/aquerydiff/aquerydiff_darwin_amd64.zip aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip &&
-          cp bazel-bin/cmd/aquerydiff/aquerydiff_darwin_arm64.zip aquerydiff_darwin_arm64.${{ env.RELEASE_VERSION }}.zip &&
-          cp bazel-bin/cmd/aquerydiff/aquerydiff_linux_amd64.zip aquerydiff_linux_amd64.${{ env.RELEASE_VERSION }}.zip &&
-          cp bazel-bin/cmd/aquerydiff/aquerydiff_linux_arm64.zip aquerydiff_linux_arm64.${{ env.RELEASE_VERSION }}.zip &&
-          cp bazel-bin/cmd/aquerydiff/aquerydiff_windows_amd64.zip aquerydiff_windows_amd64.${{ env.RELEASE_VERSION }}.zip &&
-          echo "done"
-
-      - name: Release
-        env:
-          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            aquerydiff_darwin_amd64.${{ env.RELEASE_VERSION }}.zip
-            aquerydiff_darwin_arm64.${{ env.RELEASE_VERSION }}.zip
-            aquerydiff_linux_amd64.${{ env.RELEASE_VERSION }}.zip
-            aquerydiff_linux_arm64.${{ env.RELEASE_VERSION }}.zip
-            aquerydiff_windows_amd64.${{ env.RELEASE_VERSION }}.zip
+  release:
+    uses: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.2.3
+    # uses: ./.github/workflows/release_ruleset.yaml # copied-from: bazel-contrib/.github/.github/workflows/release_ruleset.yaml@v7.2.3
+    with:
+      prerelease: false
+      release_files: rules_proto-*.tar.gz
+      tag_name: ${{ inputs.tag_name || github.ref_name }}
+    secrets:
+        inherit
+  publish:
+    needs: release
+    uses: ./.github/workflows/publish.yaml
+    with:
+      tag_name: ${{ inputs.tag_name || github.ref_name }}
+    secrets:
+      publish_token: ${{ secrets.publish_token || secrets.BCR_PUBLISH_TOKEN }}
