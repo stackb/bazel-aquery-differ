@@ -29,12 +29,12 @@ echo "Original commit: $original_commit"
 # checkout before commit and run aquery
 echo "Checking out before commit: {before_commit}"
 git checkout {before_commit}
-{bazel} aquery --output=proto {target} > "$tmpdir/before.pb"
+{bazel} aquery --output=proto '{target}' > "$tmpdir/before.pb"
 
 # checkout after commit and run aquery  
 echo "Checking out after commit: {after_commit}"
 git checkout {after_commit}
-{bazel} aquery --output=proto {target} > "$tmpdir/after.pb"
+{bazel} aquery --output=proto '{target}' > "$tmpdir/after.pb"
 
 # restore original commit
 echo "Restoring original commit: $original_commit"
