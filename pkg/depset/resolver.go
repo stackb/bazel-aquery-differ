@@ -34,7 +34,7 @@ func (r *Resolver) ResolveIds(depSetIds []uint32) (artifacts []string, err error
 		}
 		artifacts = append(artifacts, files...)
 	}
-	return
+	return deduplicateAndSort(artifacts), err
 }
 
 func (r *Resolver) Resolve(in *anpb.DepSetOfFiles) ([]string, error) {
