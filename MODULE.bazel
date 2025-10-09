@@ -10,7 +10,7 @@ module(
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_go", version = "0.57.0")
 bazel_dep(name = "gazelle", version = "0.45.0")
-bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
+bazel_dep(name = "build_stack_rules_proto", version = "4.1.1")
 
 local_path_override(
     module_name = "rules_go",
@@ -38,7 +38,7 @@ use_repo(
 # Configuration: Protobuf Deps
 # -------------------------------------------------------------------
 
-proto_repository = use_extension("@build_stack_rules_proto//extensions:proto_repository.bzl", "proto_repository", dev_dependency = True)
+proto_repository = use_extension("@build_stack_rules_proto//extensions:proto_repository.bzl", "proto_repository")
 proto_repository.archive(
     name = "protobufapis",
     build_directives = [
@@ -56,7 +56,7 @@ proto_repository.archive(
     ],
     build_file_generation = "clean",
     build_file_proto_mode = "file",
-    cfgs = ["@//:rules_proto_config.yaml"],
+    cfgs = ["//:rules_proto_config.yaml"],
     deleted_files = [
         "google/protobuf/*test*.proto",
         "google/protobuf/*unittest*.proto",

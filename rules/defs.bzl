@@ -79,6 +79,11 @@ aquery_git_diff = rule(
             doc = "bazel target to aquery",
             mandatory = True,
         ),
+        "match": attr.string(
+            doc = "strategy to compare before and after actions",
+            default = "output_files",
+            values = ["output_files", "mnemonic"],
+        ),
         "bazel": attr.string(
             doc = "the bazel executable",
             default = "bazel",
@@ -118,22 +123,24 @@ after="$cwd/{after}"
 cd $BUILD_WORKING_DIRECTORY
 
 # run the tool
-"$cwd/{tool}" \
+"$cwd/{tool}"{cmpdiff_flag}{unidiff_flag}{serve_flag}{open_flag} \
+    --match '{match}' \
     --target '{target}' \
     --before "$before" \
     --after "$after" \
     --report_dir=$cwd \
-    {serve_flag} \
-    {open_flag} \
 
 """.format(
             bazel = ctx.attr.bazel,
             tool = ctx.executable._tool.short_path,
+            match = ctx.attr.match,
             target = ctx.attr.target,
             before = ctx.file.before.short_path,
             after = ctx.file.after.short_path,
-            serve_flag = "--serve" if ctx.attr.serve else "",
-            open_flag = "--open" if ctx.attr.open else "",
+            unidiff_flag = " --unidiff" if ctx.attr.unidiff else "",
+            cmpdiff_flag = " --cmpdiff" if ctx.attr.cmpdiff else "",
+            serve_flag = " --serve" if ctx.attr.serve else "",
+            open_flag = " --open" if ctx.attr.open else "",
         ),
         is_executable = True,
     )
@@ -162,12 +169,25 @@ aquery_diff = rule(
             doc = "bazel target to aquery",
             mandatory = True,
         ),
+        "match": attr.string(
+            doc = "strategy to compare before and after actions",
+            default = "output_files",
+            values = ["output_files", "mnemonic"],
+        ),
         "bazel": attr.string(
             doc = "the bazel executable",
             default = "bazel",
         ),
         "serve": attr.bool(
             doc = "start webserver",
+            default = True,
+        ),
+        "unidiff": attr.bool(
+            doc = "whether to compute unidiffs (can be slow)",
+            default = False,
+        ),
+        "cmpdiff": attr.bool(
+            doc = "whether to compute go-cmp diff (typically fast)",
             default = True,
         ),
         "open": attr.bool(

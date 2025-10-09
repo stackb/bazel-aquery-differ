@@ -20,7 +20,6 @@ type Graph struct {
 	DepSetOfFiles  depset.Map
 	DepSetResolver depset.Resolver
 	Actions        []*dipb.Action
-	OutputMap      OutputMap
 }
 
 func NewGraph(name string, container *anpb.ActionGraphContainer) (*Graph, error) {
@@ -50,11 +49,10 @@ func NewGraph(name string, container *anpb.ActionGraphContainer) (*Graph, error)
 		DepSetOfFiles:  depSetOfFiles,
 		DepSetResolver: *depSetResolver,
 		Actions:        actions,
-		OutputMap:      NewOutputMap(actions),
 	}, nil
 }
 
-func Partition(before, after OutputMap) (beforeOnly, afterOnly, both OutputPairs) {
+func Partition(before, after ActionMap) (beforeOnly, afterOnly, both OutputPairs) {
 	a := make(map[string]bool)
 	b := make(map[string]bool)
 	for output := range before {
