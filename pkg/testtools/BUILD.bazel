@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "testtools",
     srcs = ["files.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/testtools",
+    importpath = "github.com/stackb/bazel_difftools/pkg/testtools",
     visibility = ["//visibility:public"],
     deps = ["@com_github_google_go_cmp//cmp:go_default_library"],
 )

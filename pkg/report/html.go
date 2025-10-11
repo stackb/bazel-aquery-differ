@@ -10,9 +10,9 @@ import (
 
 	"html/template"
 
-	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
-	"github.com/stackb/bazel-aquery-differ/pkg/action"
-	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
+	dipb "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ"
+	"github.com/stackb/bazel_difftools/pkg/action"
+	"github.com/stackb/bazel_difftools/pkg/protobuf"
 )
 
 type Html struct {

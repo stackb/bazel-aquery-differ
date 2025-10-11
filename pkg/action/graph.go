@@ -5,10 +5,10 @@ import (
 	"sort"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
-	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
-	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
-	"github.com/stackb/bazel-aquery-differ/pkg/depset"
-	"github.com/stackb/bazel-aquery-differ/pkg/target"
+	dipb "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ"
+	"github.com/stackb/bazel_difftools/pkg/artifact"
+	"github.com/stackb/bazel_difftools/pkg/depset"
+	"github.com/stackb/bazel_difftools/pkg/target"
 )
 
 // Graph holds compiled data about the action graph container.

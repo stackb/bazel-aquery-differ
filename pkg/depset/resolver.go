@@ -5,7 +5,7 @@ import (
 	"sort"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
-	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
+	"github.com/stackb/bazel_difftools/pkg/artifact"
 )
 
 type Resolver struct {
@@ -63,12 +63,11 @@ func (r *Resolver) Resolve(in *anpb.DepSetOfFiles) ([]string, error) {
 		}
 		artifacts = append(artifacts, files...)
 	}
-	
+
 	r.depSetArtifacts[in.Id] = deduplicateAndSort(artifacts)
 
 	return artifacts, nil
 }
-
 
 // deduplicateAndSort removes duplicate entries and sorts the list
 func deduplicateAndSort(in []string) (out []string) {

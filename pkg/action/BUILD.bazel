@@ -8,7 +8,7 @@ go_library(
         "output_map.go",
         "output_pair.go",
     ],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/action",
+    importpath = "github.com/stackb/bazel_difftools/pkg/action",
     visibility = ["//visibility:public"],
     deps = [
         "//build/stack/bazel/aquery/differ",

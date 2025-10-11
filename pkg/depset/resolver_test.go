@@ -5,7 +5,7 @@ import (
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
 	"github.com/google/go-cmp/cmp"
-	"github.com/stackb/bazel-aquery-differ/pkg/artifact"
+	"github.com/stackb/bazel_difftools/pkg/artifact"
 )
 
 func TestPathMap(t *testing.T) {

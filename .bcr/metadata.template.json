@@ -1,5 +1,5 @@
 {
-    "homepage": "https://github.com/stackb/bazel-aquery-differ",
+    "homepage": "https://github.com/stackb/bazel_difftools",
     "maintainers": [
         {
             "name": "Paul Cody",
@@ -8,7 +8,7 @@
         }
     ],
     "repository": [
-        "github:stackb/bazel-aquery-differ"
+        "github:stackb/bazel_difftools"
     ],
     "versions": [],
     "yanked_versions": {}

@@ -1,4 +1,4 @@
-module github.com/stackb/bazel-aquery-differ
+module github.com/stackb/bazel_difftools
 
 go 1.23.1
 

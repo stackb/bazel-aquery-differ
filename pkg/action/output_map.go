@@ -1,7 +1,7 @@
 package action
 
 import (
-	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
+	dipb "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ"
 )
 
 // ActionMap is a map of string -> action.

@@ -219,7 +219,7 @@ const file_build_stack_bazel_aquery_differ_action_proto_rawDesc = "" +
 	"\x12execution_platform\x18\x10 \x01(\tR\x11executionPlatform\x12)\n" +
 	"\x10template_content\x18\x11 \x01(\tR\x0ftemplateContent\x12<\n" +
 	"\rsubstitutions\x18\x12 \x03(\v2\x16.analysis.KeyValuePairR\rsubstitutions\x12#\n" +
-	"\rfile_contents\x18\x13 \x01(\tR\ffileContentsBGZEgithub.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differb\x06proto3"
+	"\rfile_contents\x18\x13 \x01(\tR\ffileContentsBCZAgithub.com/stackb/bazel_difftools/build/stack/bazel/aquery/differb\x06proto3"
 
 var (
 	file_build_stack_bazel_aquery_differ_action_proto_rawDescOnce sync.Once

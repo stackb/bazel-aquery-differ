@@ -10,9 +10,9 @@ import (
 	"runtime"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
-	"github.com/stackb/bazel-aquery-differ/pkg/action"
-	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
-	"github.com/stackb/bazel-aquery-differ/pkg/report"
+	"github.com/stackb/bazel_difftools/pkg/action"
+	"github.com/stackb/bazel_difftools/pkg/protobuf"
+	"github.com/stackb/bazel_difftools/pkg/report"
 )
 
 func main() {

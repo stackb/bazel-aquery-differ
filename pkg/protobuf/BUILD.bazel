@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "protobuf",
     srcs = ["io.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/protobuf",
+    importpath = "github.com/stackb/bazel_difftools/pkg/protobuf",
     visibility = ["//visibility:public"],
     deps = [
         "@org_golang_google_protobuf//encoding/protojson:go_default_library",
