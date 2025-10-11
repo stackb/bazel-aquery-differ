@@ -52,6 +52,34 @@ func NewGraph(name string, container *anpb.ActionGraphContainer) (*Graph, error)
 	}, nil
 }
 
+// GetPrimaryTarget returns the most common target from the actions in the graph,
+// or empty string if there are no actions.
+func (g *Graph) GetPrimaryTarget() string {
+	if len(g.Actions) == 0 {
+		return ""
+	}
+
+	// Count target occurrences
+	targetCounts := make(map[string]int)
+	for _, action := range g.Actions {
+		if action.Target != "" {
+			targetCounts[action.Target]++
+		}
+	}
+
+	// Find the most common target
+	var maxTarget string
+	var maxCount int
+	for target, count := range targetCounts {
+		if count > maxCount {
+			maxTarget = target
+			maxCount = count
+		}
+	}
+
+	return maxTarget
+}
+
 func Partition(before, after ActionMap) (beforeOnly, afterOnly, both OutputPairs) {
 	a := make(map[string]bool)
 	b := make(map[string]bool)

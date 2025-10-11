@@ -18,6 +18,11 @@ type OutputPair struct {
 	Action *dipb.Action // representative of before/after
 	Before *dipb.Action
 	After  *dipb.Action
+
+	// Cached formatted text for unified diff (lazy initialized)
+	beforeText string
+	afterText  string
+	textCached bool
 }
 
 func (p *OutputPair) Diff() string {
@@ -29,21 +34,30 @@ func (p *OutputPair) Diff() string {
 	)
 }
 
-func (p *OutputPair) UnifiedDiff() gotextdiff.Unified {
-	var a string
-	var b string
+// formatTexts computes and caches the formatted text for before/after actions.
+// This is done lazily and only once to avoid repeated proto cloning and formatting.
+func (p *OutputPair) formatTexts() {
+	if p.textCached {
+		return
+	}
+
 	if p.Before != nil {
 		beforeCopy := proto.Clone(p.Before).(*dipb.Action)
 		beforeCopy.Id = ""
-		a = protobuf.FormatProtoText(beforeCopy)
+		p.beforeText = protobuf.FormatProtoText(beforeCopy)
 	}
 	if p.After != nil {
 		afterCopy := proto.Clone(p.After).(*dipb.Action)
 		afterCopy.Id = ""
-		b = protobuf.FormatProtoText(afterCopy)
+		p.afterText = protobuf.FormatProtoText(afterCopy)
 	}
-	edits := myers.ComputeEdits(span.URI(p.Output), a, b)
-	return gotextdiff.ToUnified(p.Output, p.Output, a, edits)
+	p.textCached = true
+}
+
+func (p *OutputPair) UnifiedDiff() gotextdiff.Unified {
+	p.formatTexts()
+	edits := myers.ComputeEdits(span.URI(p.Output), p.beforeText, p.afterText)
+	return gotextdiff.ToUnified(p.Output, p.Output, p.beforeText, edits)
 }
 
 type OutputPairs []*OutputPair

@@ -27,7 +27,6 @@ func run(args []string) error {
 	var config config
 
 	flags := flag.NewFlagSet("aquerydiff", flag.ExitOnError)
-	flags.StringVar(&config.target, "target", "", "the target under analysis")
 	flags.StringVar(&config.beforeFile, "before", "", "filepath to aquery file (before)")
 	flags.StringVar(&config.afterFile, "after", "", "filepath to aquery file (after)")
 	flags.StringVar(&config.matchingStrategy, "match", "output_files", "method used to build mapping of before & after actions (output_files|mnemonic)")
@@ -104,8 +103,17 @@ func run(args []string) error {
 		}
 	}
 
+	// Derive target from the action graph (prefer before, fallback to after)
+	target := beforeGraph.GetPrimaryTarget()
+	if target == "" {
+		target = afterGraph.GetPrimaryTarget()
+	}
+	if target == "" {
+		target = "unknown"
+	}
+
 	r := report.Html{
-		Target:     config.target,
+		Target:     target,
 		BeforeFile: config.beforeFile,
 		AfterFile:  config.afterFile,
 		Before:     beforeGraph,

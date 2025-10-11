@@ -11,5 +11,4 @@ aquery_diff(
     name = "diff",
     after = "after.pbtext",
     before = "before.pbtext",
-    target = "deps(//cmd/aquerydiff)",
 )

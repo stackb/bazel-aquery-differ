@@ -1,3 +1,46 @@
+def _build_flags(ctx):
+    """Helper to build common CLI flags."""
+    flags = []
+    if ctx.attr.unidiff:
+        flags.append("--unidiff")
+    if ctx.attr.cmpdiff:
+        flags.append("--cmpdiff")
+    if ctx.attr.serve:
+        flags.append("--serve")
+    if ctx.attr.open:
+        flags.append("--open")
+    return " ".join(flags)
+
+_COMMON_TOOL_ATTRS = {
+    "match": attr.string(
+        doc = "strategy to compare before and after actions",
+        default = "output_files",
+        values = ["output_files", "mnemonic"],
+    ),
+    "serve": attr.bool(
+        doc = "start webserver",
+        default = True,
+    ),
+    "open": attr.bool(
+        doc = "open browser to webserver URL",
+        default = True,
+    ),
+    "unidiff": attr.bool(
+        doc = "whether to compute unidiffs (can be slow)",
+        default = False,
+    ),
+    "cmpdiff": attr.bool(
+        doc = "whether to compute go-cmp diff (typically fast)",
+        default = True,
+    ),
+    "_tool": attr.label(
+        doc = "the aquerydiff tool",
+        cfg = "exec",
+        default = "//cmd/aquerydiff",
+        executable = True,
+    ),
+}
+
 def _aquery_git_diff_impl(ctx):
     files = [ctx.outputs.executable]
     runfiles = [ctx.executable._tool]
@@ -41,18 +84,18 @@ echo "Restoring original commit: $original_commit"
 git checkout $original_commit
 
 # run the tool
-"$cwd/{tool}" --target '{target}' --before "$tmpdir/before.pb" --after "$tmpdir/after.pb" --report_dir=$cwd {serve_flag} {open_flag}
+"$cwd/{tool}" {flags} --match '{match}' --before "$tmpdir/before.pb" --after "$tmpdir/after.pb" --report_dir=$cwd
 
 # cleanup temporary directory
 rm -rf "$tmpdir"
 """.format(
             bazel = ctx.attr.bazel,
             tool = ctx.executable._tool.short_path,
+            match = ctx.attr.match,
             target = ctx.attr.target,
             before_commit = ctx.attr.before,
             after_commit = ctx.attr.after,
-            serve_flag = "--serve" if ctx.attr.serve else "",
-            open_flag = "--open" if ctx.attr.open else "",
+            flags = _build_flags(ctx),
         ),
         is_executable = True,
     )
@@ -66,7 +109,15 @@ rm -rf "$tmpdir"
 
 aquery_git_diff = rule(
     implementation = _aquery_git_diff_impl,
-    attrs = {
+    attrs = dict(_COMMON_TOOL_ATTRS, **{
+        "target": attr.string(
+            doc = "bazel target to aquery",
+            mandatory = True,
+        ),
+        "bazel": attr.string(
+            doc = "the bazel executable",
+            default = "bazel",
+        ),
         "before": attr.string(
             doc = "the baseline git commit",
             mandatory = True,
@@ -75,34 +126,7 @@ aquery_git_diff = rule(
             doc = "the after git commit",
             mandatory = True,
         ),
-        "target": attr.string(
-            doc = "bazel target to aquery",
-            mandatory = True,
-        ),
-        "match": attr.string(
-            doc = "strategy to compare before and after actions",
-            default = "output_files",
-            values = ["output_files", "mnemonic"],
-        ),
-        "bazel": attr.string(
-            doc = "the bazel executable",
-            default = "bazel",
-        ),
-        "serve": attr.bool(
-            doc = "start webserver",
-            default = True,
-        ),
-        "open": attr.bool(
-            doc = "open browser to webserver URL",
-            default = True,
-        ),
-        "_tool": attr.label(
-            doc = "the aquerydiff tool",
-            cfg = "exec",
-            default = "//cmd/aquerydiff",
-            executable = True,
-        ),
-    },
+    }),
     executable = True,
 )
 
@@ -123,24 +147,14 @@ after="$cwd/{after}"
 cd $BUILD_WORKING_DIRECTORY
 
 # run the tool
-"$cwd/{tool}"{cmpdiff_flag}{unidiff_flag}{serve_flag}{open_flag} \
-    --match '{match}' \
-    --target '{target}' \
-    --before "$before" \
-    --after "$after" \
-    --report_dir=$cwd \
+"$cwd/{tool}" {flags} --match '{match}' --before "$before" --after "$after" --report_dir=$cwd
 
 """.format(
-            bazel = ctx.attr.bazel,
             tool = ctx.executable._tool.short_path,
             match = ctx.attr.match,
-            target = ctx.attr.target,
             before = ctx.file.before.short_path,
             after = ctx.file.after.short_path,
-            unidiff_flag = " --unidiff" if ctx.attr.unidiff else "",
-            cmpdiff_flag = " --cmpdiff" if ctx.attr.cmpdiff else "",
-            serve_flag = " --serve" if ctx.attr.serve else "",
-            open_flag = " --open" if ctx.attr.open else "",
+            flags = _build_flags(ctx),
         ),
         is_executable = True,
     )
@@ -154,52 +168,17 @@ cd $BUILD_WORKING_DIRECTORY
 
 aquery_diff = rule(
     implementation = _aquery_diff_impl,
-    attrs = {
+    attrs = dict(_COMMON_TOOL_ATTRS, **{
         "before": attr.label(
-            doc = "the baseline aquery file",
-            allow_single_file = True,
+            doc = "the baseline aquery file (proto, textproto, or jsonproto format)",
+            allow_single_file = [".pb", ".proto", ".textproto", ".json", ".jsonproto"],
             mandatory = True,
         ),
         "after": attr.label(
-            doc = "the comparison aquery file",
-            allow_single_file = True,
-            mandatory = False,
-        ),
-        "target": attr.string(
-            doc = "bazel target to aquery",
+            doc = "the comparison aquery file (proto, textproto, or jsonproto format)",
+            allow_single_file = [".pb", ".proto", ".textproto", ".json", ".jsonproto"],
             mandatory = True,
         ),
-        "match": attr.string(
-            doc = "strategy to compare before and after actions",
-            default = "output_files",
-            values = ["output_files", "mnemonic"],
-        ),
-        "bazel": attr.string(
-            doc = "the bazel executable",
-            default = "bazel",
-        ),
-        "serve": attr.bool(
-            doc = "start webserver",
-            default = True,
-        ),
-        "unidiff": attr.bool(
-            doc = "whether to compute unidiffs (can be slow)",
-            default = False,
-        ),
-        "cmpdiff": attr.bool(
-            doc = "whether to compute go-cmp diff (typically fast)",
-            default = True,
-        ),
-        "open": attr.bool(
-            doc = "open browser to webserver URL",
-            default = True,
-        ),
-        "_tool": attr.label(
-            doc = "the aquerydiff tool",
-            cfg = "exec",
-            default = "//cmd/aquerydiff",
-            executable = True,
-        ),
-    },
+    }),
     executable = True,
 )
