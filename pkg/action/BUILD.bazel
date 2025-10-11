@@ -22,6 +22,7 @@ go_library(
         "@com_github_hexops_gotextdiff//:go_default_library",
         "@com_github_hexops_gotextdiff//myers:go_default_library",
         "@com_github_hexops_gotextdiff//span:go_default_library",
+        "@org_golang_google_protobuf//proto:go_default_library",
     ],
 )
 

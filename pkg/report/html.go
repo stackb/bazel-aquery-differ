@@ -3,7 +3,6 @@ package report
 import (
 	"fmt"
 	"io"
-	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -17,6 +16,7 @@ import (
 )
 
 type Html struct {
+	Target     string
 	BeforeFile string
 	AfterFile  string
 	Before     *action.Graph
@@ -25,6 +25,8 @@ type Html struct {
 	AfterOnly  action.OutputPairs
 	Equal      action.OutputPairs
 	NonEqual   action.OutputPairs
+	Unidiff    bool
+	Cmpdiff    bool
 }
 
 func (r *Html) Emit(dir string) error {
@@ -127,14 +129,25 @@ func (r *Html) emitOutputPairDiff(dir string, pair *action.OutputPair) error {
 		return err
 	}
 
-	log.Printf("Unified Diff %s", filename)
-	unifiedDiff := fmt.Sprint(pair.UnifiedDiff())
-	if err := os.WriteFile(filename+".diff.txt", []byte(unifiedDiff), fs.ModePerm); err != nil {
-		return err
+	if r.Unidiff {
+		log.Printf("Unified Diff %s", filename)
+		unifiedDiff := fmt.Sprint(pair.UnifiedDiff())
+		if unifiedDiff == "" {
+			unifiedDiff = "NONE"
+		}
+		if err := r.emitDiffHtml(filename+".diff.html", unifiedDiff); err != nil {
+			return err
+		}
 	}
-	log.Printf("Cmp Diff %s", filename)
-	if err := os.WriteFile(filename+".cmp.txt", []byte(pair.Diff()), fs.ModePerm); err != nil {
-		return err
+	if r.Cmpdiff {
+		log.Printf("Cmp Diff %s", filename)
+		cmpDiff := pair.Diff()
+		if cmpDiff == "" {
+			cmpDiff = "NONE"
+		}
+		if err := r.emitCmpHtml(filename+".cmp.html", cmpDiff); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -159,4 +172,38 @@ func (r *Html) emitStyleCss(dir string) error {
 func (r *Html) renderIndexHtml(out io.Writer) error {
 	tmpl := template.Must(template.New("index.html.tmpl").ParseFS(indexHtmlFs, "index.html.tmpl"))
 	return tmpl.Execute(out, r)
+}
+
+type diffData struct {
+	Content string
+}
+
+func (r *Html) emitDiffHtml(filename string, content string) error {
+	out, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	data := diffData{
+		Content: content,
+	}
+
+	tmpl := template.Must(template.New("diff.html.tmpl").ParseFS(diffHtmlFs, "diff.html.tmpl"))
+	return tmpl.Execute(out, data)
+}
+
+func (r *Html) emitCmpHtml(filename string, content string) error {
+	out, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	data := diffData{
+		Content: content,
+	}
+
+	tmpl := template.Must(template.New("cmp.html.tmpl").ParseFS(cmpHtmlFs, "cmp.html.tmpl"))
+	return tmpl.Execute(out, data)
 }
