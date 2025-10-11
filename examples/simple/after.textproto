@@ -1,0 +1,1718 @@
+rule_classes {
+id: 1
+name: "go_binary"
+}
+targets {
+id: 1
+label: "//cmd/aquerydiff:aquerydiff_linux_amd64"
+rule_class_id: 1
+}
+configuration {
+id: 1
+mnemonic: "darwin_arm64-fastbuild-ST-28c832439b7e"
+platform_name: "darwin_arm64"
+checksum: "2612556a17660b242edb7af5a57d19afb48547338430438ba8847dc2b6fa13be"
+}
+path_fragments {
+id: 5
+label: "external"
+}
+path_fragments {
+id: 4
+label: "rules_go++go_sdk+main___download_0"
+parent_id: 5
+}
+path_fragments {
+id: 3
+label: "pkg"
+parent_id: 4
+}
+path_fragments {
+id: 2
+label: "include"
+parent_id: 3
+}
+path_fragments {
+id: 1
+label: "asm_amd64.h"
+parent_id: 2
+}
+artifacts {
+id: 1
+path_fragment_id: 1
+}
+path_fragments {
+id: 6
+label: "asm_ppc64x.h"
+parent_id: 2
+}
+artifacts {
+id: 2
+path_fragment_id: 6
+}
+path_fragments {
+id: 7
+label: "funcdata.h"
+parent_id: 2
+}
+artifacts {
+id: 3
+path_fragment_id: 7
+}
+path_fragments {
+id: 8
+label: "textflag.h"
+parent_id: 2
+}
+artifacts {
+id: 4
+path_fragment_id: 8
+}
+dep_set_of_files {
+id: 3
+direct_artifact_ids: 1
+direct_artifact_ids: 2
+direct_artifact_ids: 3
+direct_artifact_ids: 4
+}
+path_fragments {
+id: 10
+label: "bin"
+parent_id: 4
+}
+path_fragments {
+id: 9
+label: "gofmt"
+parent_id: 10
+}
+artifacts {
+id: 5
+path_fragment_id: 9
+}
+path_fragments {
+id: 13
+label: "tool"
+parent_id: 3
+}
+path_fragments {
+id: 12
+label: "darwin_arm64"
+parent_id: 13
+}
+path_fragments {
+id: 11
+label: "addr2line"
+parent_id: 12
+}
+artifacts {
+id: 6
+path_fragment_id: 11
+}
+path_fragments {
+id: 14
+label: "asm"
+parent_id: 12
+}
+artifacts {
+id: 7
+path_fragment_id: 14
+}
+path_fragments {
+id: 15
+label: "buildid"
+parent_id: 12
+}
+artifacts {
+id: 8
+path_fragment_id: 15
+}
+path_fragments {
+id: 16
+label: "cgo"
+parent_id: 12
+}
+artifacts {
+id: 9
+path_fragment_id: 16
+}
+path_fragments {
+id: 17
+label: "compile"
+parent_id: 12
+}
+artifacts {
+id: 10
+path_fragment_id: 17
+}
+path_fragments {
+id: 18
+label: "covdata"
+parent_id: 12
+}
+artifacts {
+id: 11
+path_fragment_id: 18
+}
+path_fragments {
+id: 19
+label: "cover"
+parent_id: 12
+}
+artifacts {
+id: 12
+path_fragment_id: 19
+}
+path_fragments {
+id: 20
+label: "doc"
+parent_id: 12
+}
+artifacts {
+id: 13
+path_fragment_id: 20
+}
+path_fragments {
+id: 21
+label: "fix"
+parent_id: 12
+}
+artifacts {
+id: 14
+path_fragment_id: 21
+}
+path_fragments {
+id: 22
+label: "link"
+parent_id: 12
+}
+artifacts {
+id: 15
+path_fragment_id: 22
+}
+path_fragments {
+id: 23
+label: "nm"
+parent_id: 12
+}
+artifacts {
+id: 16
+path_fragment_id: 23
+}
+path_fragments {
+id: 24
+label: "objdump"
+parent_id: 12
+}
+artifacts {
+id: 17
+path_fragment_id: 24
+}
+path_fragments {
+id: 25
+label: "pack"
+parent_id: 12
+}
+artifacts {
+id: 18
+path_fragment_id: 25
+}
+path_fragments {
+id: 26
+label: "pprof"
+parent_id: 12
+}
+artifacts {
+id: 19
+path_fragment_id: 26
+}
+path_fragments {
+id: 27
+label: "preprofile"
+parent_id: 12
+}
+artifacts {
+id: 20
+path_fragment_id: 27
+}
+path_fragments {
+id: 28
+label: "test2json"
+parent_id: 12
+}
+artifacts {
+id: 21
+path_fragment_id: 28
+}
+path_fragments {
+id: 29
+label: "trace"
+parent_id: 12
+}
+artifacts {
+id: 22
+path_fragment_id: 29
+}
+path_fragments {
+id: 30
+label: "vet"
+parent_id: 12
+}
+artifacts {
+id: 23
+path_fragment_id: 30
+}
+path_fragments {
+id: 31
+label: "go.env"
+parent_id: 4
+}
+artifacts {
+id: 24
+path_fragment_id: 31
+}
+dep_set_of_files {
+id: 4
+direct_artifact_ids: 5
+direct_artifact_ids: 6
+direct_artifact_ids: 7
+direct_artifact_ids: 8
+direct_artifact_ids: 9
+direct_artifact_ids: 10
+direct_artifact_ids: 11
+direct_artifact_ids: 12
+direct_artifact_ids: 13
+direct_artifact_ids: 14
+direct_artifact_ids: 15
+direct_artifact_ids: 16
+direct_artifact_ids: 17
+direct_artifact_ids: 18
+direct_artifact_ids: 19
+direct_artifact_ids: 20
+direct_artifact_ids: 21
+direct_artifact_ids: 22
+direct_artifact_ids: 23
+direct_artifact_ids: 24
+}
+path_fragments {
+id: 38
+label: "bazel-out"
+}
+path_fragments {
+id: 37
+label: "darwin_arm64-fastbuild-ST-0a57218378ec"
+parent_id: 38
+}
+path_fragments {
+id: 36
+label: "bin"
+parent_id: 37
+}
+path_fragments {
+id: 35
+label: "external"
+parent_id: 36
+}
+path_fragments {
+id: 34
+label: "rules_go+"
+parent_id: 35
+}
+path_fragments {
+id: 33
+label: "stdlib_"
+parent_id: 34
+}
+path_fragments {
+id: 32
+label: "pkg"
+parent_id: 33
+}
+artifacts {
+id: 25
+path_fragment_id: 32
+is_tree_artifact: true
+}
+path_fragments {
+id: 41
+label: "cmd"
+}
+path_fragments {
+id: 40
+label: "aquerydiff"
+parent_id: 41
+}
+path_fragments {
+id: 39
+label: "config.go"
+parent_id: 40
+}
+artifacts {
+id: 26
+path_fragment_id: 39
+}
+path_fragments {
+id: 42
+label: "main.go"
+parent_id: 40
+}
+artifacts {
+id: 27
+path_fragment_id: 42
+}
+path_fragments {
+id: 47
+label: "darwin_arm64-opt-exec-ST-d6cc8b84a7bb"
+parent_id: 38
+}
+path_fragments {
+id: 46
+label: "bin"
+parent_id: 47
+}
+path_fragments {
+id: 45
+label: "external"
+parent_id: 46
+}
+path_fragments {
+id: 44
+label: "rules_go++go_sdk+main___download_0"
+parent_id: 45
+}
+path_fragments {
+id: 43
+label: "packages.txt"
+parent_id: 44
+}
+artifacts {
+id: 28
+path_fragment_id: 43
+}
+path_fragments {
+id: 49
+label: "pack_reset"
+parent_id: 44
+}
+path_fragments {
+id: 48
+label: "pack.exe"
+parent_id: 49
+}
+artifacts {
+id: 29
+path_fragment_id: 48
+}
+path_fragments {
+id: 54
+label: "darwin_arm64-fastbuild-ST-28c832439b7e"
+parent_id: 38
+}
+path_fragments {
+id: 53
+label: "bin"
+parent_id: 54
+}
+path_fragments {
+id: 52
+label: "pkg"
+parent_id: 53
+}
+path_fragments {
+id: 51
+label: "action"
+parent_id: 52
+}
+path_fragments {
+id: 50
+label: "action.x"
+parent_id: 51
+}
+artifacts {
+id: 30
+path_fragment_id: 50
+}
+path_fragments {
+id: 56
+label: "protobuf"
+parent_id: 52
+}
+path_fragments {
+id: 55
+label: "protobuf.x"
+parent_id: 56
+}
+artifacts {
+id: 31
+path_fragment_id: 55
+}
+path_fragments {
+id: 58
+label: "report"
+parent_id: 52
+}
+path_fragments {
+id: 57
+label: "report.x"
+parent_id: 58
+}
+artifacts {
+id: 32
+path_fragment_id: 57
+}
+path_fragments {
+id: 64
+label: "external"
+parent_id: 53
+}
+path_fragments {
+id: 63
+label: "build_stack_rules_proto++proto_repository+bazelapis"
+parent_id: 64
+}
+path_fragments {
+id: 62
+label: "src"
+parent_id: 63
+}
+path_fragments {
+id: 61
+label: "main"
+parent_id: 62
+}
+path_fragments {
+id: 60
+label: "protobuf"
+parent_id: 61
+}
+path_fragments {
+id: 59
+label: "analysis_v2_go_proto.x"
+parent_id: 60
+}
+artifacts {
+id: 33
+path_fragment_id: 59
+}
+dep_set_of_files {
+id: 2
+transitive_dep_set_ids: 3
+transitive_dep_set_ids: 4
+direct_artifact_ids: 25
+direct_artifact_ids: 26
+direct_artifact_ids: 27
+direct_artifact_ids: 28
+direct_artifact_ids: 29
+direct_artifact_ids: 30
+direct_artifact_ids: 31
+direct_artifact_ids: 32
+direct_artifact_ids: 33
+}
+path_fragments {
+id: 66
+label: "builder_reset"
+parent_id: 44
+}
+path_fragments {
+id: 65
+label: "builder"
+parent_id: 66
+}
+artifacts {
+id: 34
+path_fragment_id: 65
+}
+dep_set_of_files {
+id: 1
+transitive_dep_set_ids: 2
+direct_artifact_ids: 34
+}
+path_fragments {
+id: 69
+label: "cmd"
+parent_id: 53
+}
+path_fragments {
+id: 68
+label: "aquerydiff"
+parent_id: 69
+}
+path_fragments {
+id: 67
+label: "aquerydiff_linux_amd64.a"
+parent_id: 68
+}
+artifacts {
+id: 35
+path_fragment_id: 67
+}
+path_fragments {
+id: 70
+label: "aquerydiff_linux_amd64.x"
+parent_id: 68
+}
+artifacts {
+id: 36
+path_fragment_id: 70
+}
+actions {
+target_id: 1
+action_key: "4ebca3b43f2594f05cf5f615259fa91bb8bf517e79097308642dea529f9ba2f9"
+mnemonic: "GoCompilePkg"
+configuration_id: 1
+arguments: "bazel-out/darwin_arm64-opt-exec-ST-d6cc8b84a7bb/bin/external/rules_go++go_sdk+main___download_0/builder_reset/builder"
+arguments: "compilepkg"
+arguments: "-sdk"
+arguments: "external/rules_go++go_sdk+main___download_0"
+arguments: "-goroot"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-0a57218378ec/bin/external/rules_go+/stdlib_"
+arguments: "-installsuffix"
+arguments: "linux_amd64"
+arguments: "-src"
+arguments: "cmd/aquerydiff/config.go"
+arguments: "-src"
+arguments: "cmd/aquerydiff/main.go"
+arguments: "-arc"
+arguments: "github.com/stackb/bazel-aquery-differ/pkg/action=github.com/stackb/bazel-aquery-differ/pkg/action=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/action/action.x"
+arguments: "-arc"
+arguments: "github.com/stackb/bazel-aquery-differ/pkg/protobuf=github.com/stackb/bazel-aquery-differ/pkg/protobuf=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/protobuf/protobuf.x"
+arguments: "-arc"
+arguments: "github.com/stackb/bazel-aquery-differ/pkg/report=github.com/stackb/bazel-aquery-differ/pkg/report=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/report/report.x"
+arguments: "-arc"
+arguments: "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2=github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/build_stack_rules_proto++proto_repository+bazelapis/src/main/protobuf/analysis_v2_go_proto.x"
+arguments: "-importpath"
+arguments: "github.com/stackb/bazel-aquery-differ/cmd/aquerydiff"
+arguments: "-p"
+arguments: "main"
+arguments: "-package_list"
+arguments: "bazel-out/darwin_arm64-opt-exec-ST-d6cc8b84a7bb/bin/external/rules_go++go_sdk+main___download_0/packages.txt"
+arguments: "-pack"
+arguments: "bazel-out/darwin_arm64-opt-exec-ST-d6cc8b84a7bb/bin/external/rules_go++go_sdk+main___download_0/pack_reset/pack.exe"
+arguments: "-embedroot"
+arguments: ""
+arguments: "-embedroot"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin"
+arguments: "-embedlookupdir"
+arguments: "cmd/aquerydiff"
+arguments: "-lo"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/cmd/aquerydiff/aquerydiff_linux_amd64.a"
+arguments: "-o"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/cmd/aquerydiff/aquerydiff_linux_amd64.x"
+arguments: "-gcflags"
+arguments: ""
+environment_variables {
+  key: "GOARCH"
+  value: "amd64"
+}
+environment_variables {
+  key: "GOOS"
+  value: "linux"
+}
+environment_variables {
+  key: "GOEXPERIMENT"
+}
+environment_variables {
+  key: "GOROOT_FINAL"
+  value: "GOROOT"
+}
+environment_variables {
+  key: "CGO_ENABLED"
+  value: "0"
+}
+environment_variables {
+  key: "GOPATH"
+}
+environment_variables {
+  key: "GOTOOLCHAIN"
+  value: "local"
+}
+environment_variables {
+  key: "GODEBUG"
+  value: "winsymlink=0"
+}
+input_dep_set_ids: 1
+output_ids: 35
+output_ids: 36
+execution_info {
+  key: "supports-path-mapping"
+  value: "1"
+}
+primary_output_id: 35
+execution_platform: "@@platforms//host:host"
+}
+path_fragments {
+id: 74
+label: "gazelle++go_deps+org_golang_google_protobuf"
+parent_id: 64
+}
+path_fragments {
+id: 73
+label: "internal"
+parent_id: 74
+}
+path_fragments {
+id: 72
+label: "detrand"
+parent_id: 73
+}
+path_fragments {
+id: 71
+label: "detrand.a"
+parent_id: 72
+}
+artifacts {
+id: 37
+path_fragment_id: 71
+}
+path_fragments {
+id: 76
+label: "errors"
+parent_id: 73
+}
+path_fragments {
+id: 75
+label: "errors.a"
+parent_id: 76
+}
+artifacts {
+id: 38
+path_fragment_id: 75
+}
+path_fragments {
+id: 79
+label: "encoding"
+parent_id: 74
+}
+path_fragments {
+id: 78
+label: "protowire"
+parent_id: 79
+}
+path_fragments {
+id: 77
+label: "protowire.a"
+parent_id: 78
+}
+artifacts {
+id: 39
+path_fragment_id: 77
+}
+path_fragments {
+id: 81
+label: "flags"
+parent_id: 73
+}
+path_fragments {
+id: 80
+label: "flags.a"
+parent_id: 81
+}
+artifacts {
+id: 40
+path_fragment_id: 80
+}
+path_fragments {
+id: 83
+label: "pragma"
+parent_id: 73
+}
+path_fragments {
+id: 82
+label: "pragma.a"
+parent_id: 83
+}
+artifacts {
+id: 41
+path_fragment_id: 82
+}
+path_fragments {
+id: 86
+label: "reflect"
+parent_id: 74
+}
+path_fragments {
+id: 85
+label: "protoreflect"
+parent_id: 86
+}
+path_fragments {
+id: 84
+label: "protoreflect.a"
+parent_id: 85
+}
+artifacts {
+id: 42
+path_fragment_id: 84
+}
+path_fragments {
+id: 88
+label: "strs"
+parent_id: 73
+}
+path_fragments {
+id: 87
+label: "strs.a"
+parent_id: 88
+}
+artifacts {
+id: 43
+path_fragment_id: 87
+}
+path_fragments {
+id: 91
+label: "encoding"
+parent_id: 73
+}
+path_fragments {
+id: 90
+label: "json"
+parent_id: 91
+}
+path_fragments {
+id: 89
+label: "json.a"
+parent_id: 90
+}
+artifacts {
+id: 44
+path_fragment_id: 89
+}
+path_fragments {
+id: 93
+label: "messageset"
+parent_id: 91
+}
+path_fragments {
+id: 92
+label: "messageset.a"
+parent_id: 93
+}
+artifacts {
+id: 45
+path_fragment_id: 92
+}
+path_fragments {
+id: 95
+label: "descfmt"
+parent_id: 73
+}
+path_fragments {
+id: 94
+label: "descfmt.a"
+parent_id: 95
+}
+artifacts {
+id: 46
+path_fragment_id: 94
+}
+path_fragments {
+id: 97
+label: "descopts"
+parent_id: 73
+}
+path_fragments {
+id: 96
+label: "descopts.a"
+parent_id: 97
+}
+artifacts {
+id: 47
+path_fragment_id: 96
+}
+path_fragments {
+id: 99
+label: "editiondefaults"
+parent_id: 73
+}
+path_fragments {
+id: 98
+label: "editiondefaults.a"
+parent_id: 99
+}
+artifacts {
+id: 48
+path_fragment_id: 98
+}
+path_fragments {
+id: 101
+label: "text"
+parent_id: 91
+}
+path_fragments {
+id: 100
+label: "text.a"
+parent_id: 101
+}
+artifacts {
+id: 49
+path_fragment_id: 100
+}
+path_fragments {
+id: 103
+label: "defval"
+parent_id: 91
+}
+path_fragments {
+id: 102
+label: "defval.a"
+parent_id: 103
+}
+artifacts {
+id: 50
+path_fragment_id: 102
+}
+path_fragments {
+id: 105
+label: "genid"
+parent_id: 73
+}
+path_fragments {
+id: 104
+label: "genid.a"
+parent_id: 105
+}
+artifacts {
+id: 51
+path_fragment_id: 104
+}
+path_fragments {
+id: 107
+label: "order"
+parent_id: 73
+}
+path_fragments {
+id: 106
+label: "order.a"
+parent_id: 107
+}
+artifacts {
+id: 52
+path_fragment_id: 106
+}
+path_fragments {
+id: 109
+label: "protoregistry"
+parent_id: 86
+}
+path_fragments {
+id: 108
+label: "protoregistry.a"
+parent_id: 109
+}
+artifacts {
+id: 53
+path_fragment_id: 108
+}
+path_fragments {
+id: 112
+label: "runtime"
+parent_id: 74
+}
+path_fragments {
+id: 111
+label: "protoiface"
+parent_id: 112
+}
+path_fragments {
+id: 110
+label: "protoiface.a"
+parent_id: 111
+}
+artifacts {
+id: 54
+path_fragment_id: 110
+}
+path_fragments {
+id: 114
+label: "proto"
+parent_id: 74
+}
+path_fragments {
+id: 113
+label: "proto.a"
+parent_id: 114
+}
+artifacts {
+id: 55
+path_fragment_id: 113
+}
+path_fragments {
+id: 116
+label: "filedesc"
+parent_id: 73
+}
+path_fragments {
+id: 115
+label: "filedesc.a"
+parent_id: 116
+}
+artifacts {
+id: 56
+path_fragment_id: 115
+}
+path_fragments {
+id: 118
+label: "set"
+parent_id: 73
+}
+path_fragments {
+id: 117
+label: "set.a"
+parent_id: 118
+}
+artifacts {
+id: 57
+path_fragment_id: 117
+}
+path_fragments {
+id: 120
+label: "protojson"
+parent_id: 79
+}
+path_fragments {
+id: 119
+label: "protojson.a"
+parent_id: 120
+}
+artifacts {
+id: 58
+path_fragment_id: 119
+}
+path_fragments {
+id: 122
+label: "prototext"
+parent_id: 79
+}
+path_fragments {
+id: 121
+label: "prototext.a"
+parent_id: 122
+}
+artifacts {
+id: 59
+path_fragment_id: 121
+}
+path_fragments {
+id: 124
+label: "tag"
+parent_id: 91
+}
+path_fragments {
+id: 123
+label: "tag.a"
+parent_id: 124
+}
+artifacts {
+id: 60
+path_fragment_id: 123
+}
+path_fragments {
+id: 126
+label: "protolazy"
+parent_id: 73
+}
+path_fragments {
+id: 125
+label: "protolazy.a"
+parent_id: 126
+}
+artifacts {
+id: 61
+path_fragment_id: 125
+}
+path_fragments {
+id: 128
+label: "impl"
+parent_id: 73
+}
+path_fragments {
+id: 127
+label: "impl.a"
+parent_id: 128
+}
+artifacts {
+id: 62
+path_fragment_id: 127
+}
+path_fragments {
+id: 130
+label: "filetype"
+parent_id: 73
+}
+path_fragments {
+id: 129
+label: "filetype.a"
+parent_id: 130
+}
+artifacts {
+id: 63
+path_fragment_id: 129
+}
+path_fragments {
+id: 132
+label: "version"
+parent_id: 73
+}
+path_fragments {
+id: 131
+label: "version.a"
+parent_id: 132
+}
+artifacts {
+id: 64
+path_fragment_id: 131
+}
+path_fragments {
+id: 134
+label: "protoimpl"
+parent_id: 112
+}
+path_fragments {
+id: 133
+label: "protoimpl.a"
+parent_id: 134
+}
+artifacts {
+id: 65
+path_fragment_id: 133
+}
+path_fragments {
+id: 135
+label: "stardoc_output_go_proto.a"
+parent_id: 60
+}
+artifacts {
+id: 66
+path_fragment_id: 135
+}
+path_fragments {
+id: 136
+label: "build_go_proto.a"
+parent_id: 60
+}
+artifacts {
+id: 67
+path_fragment_id: 136
+}
+path_fragments {
+id: 137
+label: "analysis_v2_go_proto.a"
+parent_id: 60
+}
+artifacts {
+id: 68
+path_fragment_id: 137
+}
+path_fragments {
+id: 143
+label: "build"
+parent_id: 53
+}
+path_fragments {
+id: 142
+label: "stack"
+parent_id: 143
+}
+path_fragments {
+id: 141
+label: "bazel"
+parent_id: 142
+}
+path_fragments {
+id: 140
+label: "aquery"
+parent_id: 141
+}
+path_fragments {
+id: 139
+label: "differ"
+parent_id: 140
+}
+path_fragments {
+id: 138
+label: "differ.a"
+parent_id: 139
+}
+artifacts {
+id: 69
+path_fragment_id: 138
+}
+path_fragments {
+id: 145
+label: "pathfragment"
+parent_id: 52
+}
+path_fragments {
+id: 144
+label: "pathfragment.a"
+parent_id: 145
+}
+artifacts {
+id: 70
+path_fragment_id: 144
+}
+path_fragments {
+id: 147
+label: "artifact"
+parent_id: 52
+}
+path_fragments {
+id: 146
+label: "artifact.a"
+parent_id: 147
+}
+artifacts {
+id: 71
+path_fragment_id: 146
+}
+path_fragments {
+id: 149
+label: "depset"
+parent_id: 52
+}
+path_fragments {
+id: 148
+label: "depset.a"
+parent_id: 149
+}
+artifacts {
+id: 72
+path_fragment_id: 148
+}
+path_fragments {
+id: 150
+label: "protobuf.a"
+parent_id: 56
+}
+artifacts {
+id: 73
+path_fragment_id: 150
+}
+path_fragments {
+id: 152
+label: "target"
+parent_id: 52
+}
+path_fragments {
+id: 151
+label: "target.a"
+parent_id: 152
+}
+artifacts {
+id: 74
+path_fragment_id: 151
+}
+path_fragments {
+id: 157
+label: "gazelle++go_deps+com_github_google_go_cmp"
+parent_id: 64
+}
+path_fragments {
+id: 156
+label: "cmp"
+parent_id: 157
+}
+path_fragments {
+id: 155
+label: "internal"
+parent_id: 156
+}
+path_fragments {
+id: 154
+label: "flags"
+parent_id: 155
+}
+path_fragments {
+id: 153
+label: "flags.a"
+parent_id: 154
+}
+artifacts {
+id: 75
+path_fragment_id: 153
+}
+path_fragments {
+id: 159
+label: "diff"
+parent_id: 155
+}
+path_fragments {
+id: 158
+label: "diff.a"
+parent_id: 159
+}
+artifacts {
+id: 76
+path_fragment_id: 158
+}
+path_fragments {
+id: 161
+label: "function"
+parent_id: 155
+}
+path_fragments {
+id: 160
+label: "function.a"
+parent_id: 161
+}
+artifacts {
+id: 77
+path_fragment_id: 160
+}
+path_fragments {
+id: 163
+label: "value"
+parent_id: 155
+}
+path_fragments {
+id: 162
+label: "value.a"
+parent_id: 163
+}
+artifacts {
+id: 78
+path_fragment_id: 162
+}
+path_fragments {
+id: 164
+label: "cmp.a"
+parent_id: 156
+}
+artifacts {
+id: 79
+path_fragment_id: 164
+}
+path_fragments {
+id: 166
+label: "cmpopts"
+parent_id: 156
+}
+path_fragments {
+id: 165
+label: "cmpopts.a"
+parent_id: 166
+}
+artifacts {
+id: 80
+path_fragment_id: 165
+}
+path_fragments {
+id: 169
+label: "gazelle++go_deps+com_github_hexops_gotextdiff"
+parent_id: 64
+}
+path_fragments {
+id: 168
+label: "span"
+parent_id: 169
+}
+path_fragments {
+id: 167
+label: "span.a"
+parent_id: 168
+}
+artifacts {
+id: 81
+path_fragment_id: 167
+}
+path_fragments {
+id: 170
+label: "gotextdiff.a"
+parent_id: 169
+}
+artifacts {
+id: 82
+path_fragment_id: 170
+}
+path_fragments {
+id: 172
+label: "myers"
+parent_id: 169
+}
+path_fragments {
+id: 171
+label: "myers.a"
+parent_id: 172
+}
+artifacts {
+id: 83
+path_fragment_id: 171
+}
+path_fragments {
+id: 173
+label: "action.a"
+parent_id: 51
+}
+artifacts {
+id: 84
+path_fragment_id: 173
+}
+path_fragments {
+id: 174
+label: "report.a"
+parent_id: 58
+}
+artifacts {
+id: 85
+path_fragment_id: 174
+}
+dep_set_of_files {
+id: 6
+direct_artifact_ids: 37
+direct_artifact_ids: 38
+direct_artifact_ids: 39
+direct_artifact_ids: 40
+direct_artifact_ids: 41
+direct_artifact_ids: 42
+direct_artifact_ids: 43
+direct_artifact_ids: 44
+direct_artifact_ids: 45
+direct_artifact_ids: 46
+direct_artifact_ids: 47
+direct_artifact_ids: 48
+direct_artifact_ids: 49
+direct_artifact_ids: 50
+direct_artifact_ids: 51
+direct_artifact_ids: 52
+direct_artifact_ids: 53
+direct_artifact_ids: 54
+direct_artifact_ids: 55
+direct_artifact_ids: 56
+direct_artifact_ids: 57
+direct_artifact_ids: 58
+direct_artifact_ids: 59
+direct_artifact_ids: 60
+direct_artifact_ids: 61
+direct_artifact_ids: 62
+direct_artifact_ids: 63
+direct_artifact_ids: 64
+direct_artifact_ids: 65
+direct_artifact_ids: 66
+direct_artifact_ids: 67
+direct_artifact_ids: 68
+direct_artifact_ids: 69
+direct_artifact_ids: 70
+direct_artifact_ids: 71
+direct_artifact_ids: 72
+direct_artifact_ids: 73
+direct_artifact_ids: 74
+direct_artifact_ids: 75
+direct_artifact_ids: 76
+direct_artifact_ids: 77
+direct_artifact_ids: 78
+direct_artifact_ids: 79
+direct_artifact_ids: 80
+direct_artifact_ids: 81
+direct_artifact_ids: 82
+direct_artifact_ids: 83
+direct_artifact_ids: 84
+direct_artifact_ids: 85
+direct_artifact_ids: 35
+direct_artifact_ids: 5
+direct_artifact_ids: 6
+direct_artifact_ids: 7
+direct_artifact_ids: 8
+direct_artifact_ids: 9
+direct_artifact_ids: 10
+direct_artifact_ids: 11
+direct_artifact_ids: 12
+direct_artifact_ids: 13
+direct_artifact_ids: 14
+direct_artifact_ids: 15
+direct_artifact_ids: 16
+direct_artifact_ids: 17
+direct_artifact_ids: 18
+direct_artifact_ids: 19
+direct_artifact_ids: 20
+direct_artifact_ids: 21
+direct_artifact_ids: 22
+direct_artifact_ids: 23
+direct_artifact_ids: 24
+direct_artifact_ids: 25
+direct_artifact_ids: 28
+}
+dep_set_of_files {
+id: 5
+transitive_dep_set_ids: 6
+direct_artifact_ids: 34
+}
+path_fragments {
+id: 176
+label: "aquerydiff_linux_amd64_"
+parent_id: 68
+}
+path_fragments {
+id: 175
+label: "aquerydiff_linux_amd64"
+parent_id: 176
+}
+artifacts {
+id: 86
+path_fragment_id: 175
+}
+actions {
+target_id: 1
+action_key: "5801836c97e6927e0cadce2f1aa4d79379d971337e6f667b366f3d6580518d9e"
+mnemonic: "GoLink"
+configuration_id: 1
+arguments: "bazel-out/darwin_arm64-opt-exec-ST-d6cc8b84a7bb/bin/external/rules_go++go_sdk+main___download_0/builder_reset/builder"
+arguments: "link"
+arguments: "-sdk"
+arguments: "external/rules_go++go_sdk+main___download_0"
+arguments: "-goroot"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-0a57218378ec/bin/external/rules_go+/stdlib_"
+arguments: "-installsuffix"
+arguments: "linux_amd64"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/detrand:detrand=google.golang.org/protobuf/internal/detrand=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/detrand/detrand.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/errors:errors=google.golang.org/protobuf/internal/errors=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/errors/errors.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//encoding/protowire:protowire=google.golang.org/protobuf/encoding/protowire=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/encoding/protowire/protowire.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/flags:flags=google.golang.org/protobuf/internal/flags=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/flags/flags.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/pragma:pragma=google.golang.org/protobuf/internal/pragma=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/pragma/pragma.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//reflect/protoreflect:protoreflect=google.golang.org/protobuf/reflect/protoreflect=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/reflect/protoreflect/protoreflect.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/strs:strs=google.golang.org/protobuf/internal/strs=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/strs/strs.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/encoding/json:json=google.golang.org/protobuf/internal/encoding/json=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/encoding/json/json.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/encoding/messageset:messageset=google.golang.org/protobuf/internal/encoding/messageset=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/encoding/messageset/messageset.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/descfmt:descfmt=google.golang.org/protobuf/internal/descfmt=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/descfmt/descfmt.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/descopts:descopts=google.golang.org/protobuf/internal/descopts=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/descopts/descopts.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/editiondefaults:editiondefaults=google.golang.org/protobuf/internal/editiondefaults=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/editiondefaults/editiondefaults.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/encoding/text:text=google.golang.org/protobuf/internal/encoding/text=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/encoding/text/text.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/encoding/defval:defval=google.golang.org/protobuf/internal/encoding/defval=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/encoding/defval/defval.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/genid:genid=google.golang.org/protobuf/internal/genid=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/genid/genid.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/order:order=google.golang.org/protobuf/internal/order=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/order/order.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//reflect/protoregistry:protoregistry=google.golang.org/protobuf/reflect/protoregistry=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/reflect/protoregistry/protoregistry.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//runtime/protoiface:protoiface=google.golang.org/protobuf/runtime/protoiface=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/runtime/protoiface/protoiface.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//proto:proto=google.golang.org/protobuf/proto=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/proto/proto.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/filedesc:filedesc=google.golang.org/protobuf/internal/filedesc=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/filedesc/filedesc.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/set:set=google.golang.org/protobuf/internal/set=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/set/set.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//encoding/protojson:protojson=google.golang.org/protobuf/encoding/protojson=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/encoding/protojson/protojson.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//encoding/prototext:prototext=google.golang.org/protobuf/encoding/prototext=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/encoding/prototext/prototext.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/encoding/tag:tag=google.golang.org/protobuf/internal/encoding/tag=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/encoding/tag/tag.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/protolazy:protolazy=google.golang.org/protobuf/internal/protolazy=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/protolazy/protolazy.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/impl:impl=google.golang.org/protobuf/internal/impl=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/impl/impl.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/filetype:filetype=google.golang.org/protobuf/internal/filetype=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/filetype/filetype.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//internal/version:version=google.golang.org/protobuf/internal/version=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/internal/version/version.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+org_golang_google_protobuf//runtime/protoimpl:protoimpl=google.golang.org/protobuf/runtime/protoimpl=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+org_golang_google_protobuf/runtime/protoimpl/protoimpl.a"
+arguments: "-arc"
+arguments: "@@build_stack_rules_proto++proto_repository+bazelapis//src/main/protobuf:stardoc_output_go_proto=github.com/bazelbuild/bazel/src/main/protobuf/stardoc_output=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/build_stack_rules_proto++proto_repository+bazelapis/src/main/protobuf/stardoc_output_go_proto.a"
+arguments: "-arc"
+arguments: "@@build_stack_rules_proto++proto_repository+bazelapis//src/main/protobuf:build_go_proto=github.com/bazelbuild/bazelapis/src/main/protobuf/build=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/build_stack_rules_proto++proto_repository+bazelapis/src/main/protobuf/build_go_proto.a"
+arguments: "-arc"
+arguments: "@@build_stack_rules_proto++proto_repository+bazelapis//src/main/protobuf:analysis_v2_go_proto=github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/build_stack_rules_proto++proto_repository+bazelapis/src/main/protobuf/analysis_v2_go_proto.a"
+arguments: "-arc"
+arguments: "@@//build/stack/bazel/aquery/differ:differ=github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/build/stack/bazel/aquery/differ/differ.a"
+arguments: "-arc"
+arguments: "@@//pkg/pathfragment:pathfragment=github.com/stackb/bazel-aquery-differ/pkg/pathfragment=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/pathfragment/pathfragment.a"
+arguments: "-arc"
+arguments: "@@//pkg/artifact:artifact=github.com/stackb/bazel-aquery-differ/pkg/artifact=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/artifact/artifact.a"
+arguments: "-arc"
+arguments: "@@//pkg/depset:depset=github.com/stackb/bazel-aquery-differ/pkg/depset=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/depset/depset.a"
+arguments: "-arc"
+arguments: "@@//pkg/protobuf:protobuf=github.com/stackb/bazel-aquery-differ/pkg/protobuf=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/protobuf/protobuf.a"
+arguments: "-arc"
+arguments: "@@//pkg/target:target=github.com/stackb/bazel-aquery-differ/pkg/target=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/target/target.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp/internal/flags:flags=github.com/google/go-cmp/cmp/internal/flags=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/internal/flags/flags.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp/internal/diff:diff=github.com/google/go-cmp/cmp/internal/diff=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/internal/diff/diff.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp/internal/function:function=github.com/google/go-cmp/cmp/internal/function=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/internal/function/function.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp/internal/value:value=github.com/google/go-cmp/cmp/internal/value=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/internal/value/value.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp:cmp=github.com/google/go-cmp/cmp=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/cmp.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_google_go_cmp//cmp/cmpopts:cmpopts=github.com/google/go-cmp/cmp/cmpopts=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_google_go_cmp/cmp/cmpopts/cmpopts.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_hexops_gotextdiff//span:span=github.com/hexops/gotextdiff/span=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_hexops_gotextdiff/span/span.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_hexops_gotextdiff//:gotextdiff=github.com/hexops/gotextdiff=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_hexops_gotextdiff/gotextdiff.a"
+arguments: "-arc"
+arguments: "@@gazelle++go_deps+com_github_hexops_gotextdiff//myers:myers=github.com/hexops/gotextdiff/myers=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/external/gazelle++go_deps+com_github_hexops_gotextdiff/myers/myers.a"
+arguments: "-arc"
+arguments: "@@//pkg/action:action=github.com/stackb/bazel-aquery-differ/pkg/action=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/action/action.a"
+arguments: "-arc"
+arguments: "@@//pkg/report:report=github.com/stackb/bazel-aquery-differ/pkg/report=bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/pkg/report/report.a"
+arguments: "-package_list"
+arguments: "bazel-out/darwin_arm64-opt-exec-ST-d6cc8b84a7bb/bin/external/rules_go++go_sdk+main___download_0/packages.txt"
+arguments: "-o"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/cmd/aquerydiff/aquerydiff_linux_amd64_/aquerydiff_linux_amd64"
+arguments: "-main"
+arguments: "bazel-out/darwin_arm64-fastbuild-ST-28c832439b7e/bin/cmd/aquerydiff/aquerydiff_linux_amd64.a"
+arguments: "-p"
+arguments: "github.com/stackb/bazel-aquery-differ/cmd/aquerydiff"
+arguments: "--"
+arguments: "-linkmode"
+arguments: "internal"
+arguments: "-s"
+arguments: "-w"
+arguments: "-buildid=redacted"
+arguments: "-s"
+arguments: "-w"
+arguments: "-extldflags"
+arguments: "-static"
+environment_variables {
+  key: "GOARCH"
+  value: "amd64"
+}
+environment_variables {
+  key: "GOOS"
+  value: "linux"
+}
+environment_variables {
+  key: "GOEXPERIMENT"
+}
+environment_variables {
+  key: "GOROOT"
+  value: "bazel-out/darwin_arm64-fastbuild-ST-0a57218378ec/bin/external/rules_go+/stdlib_"
+}
+environment_variables {
+  key: "GOROOT_FINAL"
+  value: "GOROOT"
+}
+environment_variables {
+  key: "CGO_ENABLED"
+  value: "0"
+}
+environment_variables {
+  key: "GOPATH"
+}
+environment_variables {
+  key: "GOTOOLCHAIN"
+  value: "local"
+}
+environment_variables {
+  key: "GODEBUG"
+  value: "winsymlink=0"
+}
+input_dep_set_ids: 5
+output_ids: 86
+primary_output_id: 86
+execution_platform: "@@platforms//host:host"
+}
+path_fragments {
+id: 177
+label: "aquerydiff_linux_amd64.repo_mapping"
+parent_id: 176
+}
+artifacts {
+id: 87
+path_fragment_id: 177
+}
+actions {
+target_id: 1
+action_key: "caeefa8c9a27b325f1a4db4b78f6bef9264fc95ae32cd3e023650443df340e2b"
+mnemonic: "RepoMappingManifest"
+configuration_id: 1
+output_ids: 87
+primary_output_id: 87
+execution_platform: "@@platforms//host:host"
+}
+path_fragments {
+id: 178
+label: "aquerydiff_linux_amd64.runfiles_manifest"
+parent_id: 176
+}
+artifacts {
+id: 88
+path_fragment_id: 178
+}
+actions {
+target_id: 1
+action_key: "2ed97eb6f2f7c5f3c7d6b7387ea5b31419eba46c0a432f2fb550c2f4c0b85911"
+mnemonic: "SourceSymlinkManifest"
+configuration_id: 1
+output_ids: 88
+primary_output_id: 88
+execution_platform: "@@platforms//host:host"
+}
+dep_set_of_files {
+id: 7
+direct_artifact_ids: 88
+}
+path_fragments {
+id: 180
+label: "aquerydiff_linux_amd64.runfiles"
+parent_id: 176
+}
+path_fragments {
+id: 179
+label: "MANIFEST"
+parent_id: 180
+}
+artifacts {
+id: 89
+path_fragment_id: 179
+}
+actions {
+target_id: 1
+action_key: "2acfeafbe09d892a6494ee4e4cc8ff9cf87b5306645f0cfc937d1be7e4d5fda2"
+mnemonic: "SymlinkTree"
+configuration_id: 1
+input_dep_set_ids: 7
+output_ids: 89
+primary_output_id: 89
+execution_platform: "@@platforms//host:host"
+}
+dep_set_of_files {
+id: 8
+direct_artifact_ids: 86
+direct_artifact_ids: 89
+direct_artifact_ids: 87
+}
+path_fragments {
+id: 183
+label: "internal"
+parent_id: 54
+}
+path_fragments {
+id: 182
+label: "_middlemen"
+parent_id: 183
+}
+path_fragments {
+id: 181
+label: "cmd_Saquerydiff_Saquerydiff_Ulinux_Uamd64_U_Saquerydiff_Ulinux_Uamd64-runfiles"
+parent_id: 182
+}
+artifacts {
+id: 90
+path_fragment_id: 181
+}
+actions {
+target_id: 1
+action_key: "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+mnemonic: "Middleman"
+configuration_id: 1
+input_dep_set_ids: 8
+output_ids: 90
+primary_output_id: 90
+execution_platform: "@@platforms//host:host"
+}

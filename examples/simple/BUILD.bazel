@@ -9,6 +9,10 @@ aquery_git_diff(
 
 aquery_diff(
     name = "diff",
-    after = "after.pbtext",
-    before = "before.pbtext",
+    # bazel aquery //cmd/aquerydiff:aquerydiff_darwin_amd64 --output textproto > examples/simple/before.textproto
+    after = "after.textproto",
+    # bazel aquery //cmd/aquerydiff:aquerydiff_linux_amd64 --output textproto > examples/simple/after.textproto
+    before = "before.textproto",
+    match = "mnemonic",
+    unidiff = True,
 )
