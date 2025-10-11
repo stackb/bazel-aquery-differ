@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "depset",
@@ -21,6 +21,6 @@ go_test(
     deps = [
         "//pkg/artifact",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
-        "@com_github_google_go_cmp//cmp",
+        "@com_github_google_go_cmp//cmp:go_default_library",
     ],
 )

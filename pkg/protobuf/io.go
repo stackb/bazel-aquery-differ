@@ -15,23 +15,33 @@ type marshaler func(m protoreflect.ProtoMessage) ([]byte, error)
 type unmarshaler func(b []byte, m protoreflect.ProtoMessage) error
 
 func unmarshalerForFilename(filename string) (unmarshaler, string) {
-	if filepath.Ext(filename) == ".json" {
+	ext := filepath.Ext(filename)
+	switch ext {
+	case ".json", ".jsonproto":
 		return protojson.Unmarshal, "json"
-	}
-	if filepath.Ext(filename) == ".text" {
+	case ".textproto":
 		return prototext.Unmarshal, "text"
+	case ".proto", ".pb":
+		return proto.Unmarshal, "proto"
+	default:
+		// Default to binary proto for unknown extensions
+		return proto.Unmarshal, "proto"
 	}
-	return proto.Unmarshal, "proto"
 }
 
 func marshalerForFilename(filename string) marshaler {
-	if filepath.Ext(filename) == ".json" {
+	ext := filepath.Ext(filename)
+	switch ext {
+	case ".json", ".jsonproto":
 		return protojson.Marshal
-	}
-	if filepath.Ext(filename) == ".textproto" {
+	case ".textproto":
 		return prototext.Marshal
+	case ".proto", ".pb":
+		return proto.Marshal
+	default:
+		// Default to binary proto for unknown extensions
+		return proto.Marshal
 	}
-	return proto.Marshal
 }
 
 func ReadFile(filename string, message protoreflect.ProtoMessage) error {

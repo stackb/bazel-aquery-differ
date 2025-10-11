@@ -1,12 +1,12 @@
 <html>
 
 <head>
-    <title>Aquerydiff Report</title>
+    <title>Aquerydiff {{.Target}}</title>
     <link href="/style.css" rel="stylesheet">
 </head>
 
 <body class="markdown-body container-lg">
-    <h1><code>aquerydiff</code> report</h1>
+    <h1><code>aquerydiff</code> <code>{{.Target}}</code></h1>
     <ul>
         <li><code>--before</code> <a href="{{.BeforeFile}}">{{.BeforeFile}}</a></li>
         <li><code>--after</code> <a href="{{.AfterFile}}">{{.AfterFile}}</a></li>
@@ -60,7 +60,7 @@
         after: [<a href="{{ .After.Id }}.json">json</a>] [<a href="{{ .After.Id }}.textproto">text</a>]
         {{ end }}
         {{ if and .Before .After }}
-        diff: [<a href="{{ .Before.Id }}/{{ .After.Id }}.diff.txt">unidiff</a>] [<a href="{{ .Before.Id }}/{{ .After.Id }}.cmp.txt">go-cmp</a>]
+        diff: [<a href="{{ .Before.Id }}/{{ .After.Id }}.diff.html">unidiff</a>] [<a href="{{ .Before.Id }}/{{ .After.Id }}.cmp.html">go-cmp</a>]
         {{ end }}
         </div>
     </td>

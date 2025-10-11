@@ -1,0 +1,18 @@
+load("//rules:defs.bzl", "aquery_diff", "aquery_git_diff")
+
+aquery_git_diff(
+    name = "git_diff",
+    after = "f8ca179cddc6b11b430fa8d2fc02136b66f2f194",
+    before = "a771ee789340aa3164d86491728828afeb5973cb",
+    target = "deps(//cmd/aquerydiff)",
+)
+
+aquery_diff(
+    name = "diff",
+    # bazel aquery //cmd/aquerydiff:aquerydiff_darwin_amd64 --output textproto > examples/simple/before.textproto
+    after = "after.textproto",
+    # bazel aquery //cmd/aquerydiff:aquerydiff_linux_amd64 --output textproto > examples/simple/after.textproto
+    before = "before.textproto",
+    match = "mnemonic",
+    unidiff = True,
+)

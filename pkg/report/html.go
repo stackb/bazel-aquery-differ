@@ -1,9 +1,10 @@
 package report
 
 import (
+	"fmt"
 	"io"
-	"io/fs"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -15,6 +16,7 @@ import (
 )
 
 type Html struct {
+	Target     string
 	BeforeFile string
 	AfterFile  string
 	Before     *action.Graph
@@ -23,6 +25,8 @@ type Html struct {
 	AfterOnly  action.OutputPairs
 	Equal      action.OutputPairs
 	NonEqual   action.OutputPairs
+	Unidiff    bool
+	Cmpdiff    bool
 }
 
 func (r *Html) Emit(dir string) error {
@@ -87,6 +91,8 @@ func (r *Html) emitFile(dir string, original string) error {
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
+
 	return copyFile(original, filename)
 }
 
@@ -99,6 +105,7 @@ func (r *Html) emitActionJsonproto(dir string, action *dipb.Action) error {
 	if err := protobuf.WritePrettyJSONFile(filename, action); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
 	return nil
 }
 
@@ -111,6 +118,7 @@ func (r *Html) emitActionTextproto(dir string, a *dipb.Action) error {
 	if err := protobuf.WritePrettyTextFile(filename, a); err != nil {
 		return err
 	}
+	log.Printf("Wrote %s", filename)
 	return nil
 }
 
@@ -120,11 +128,26 @@ func (r *Html) emitOutputPairDiff(dir string, pair *action.OutputPair) error {
 	if err := os.MkdirAll(basedir, os.ModePerm); err != nil {
 		return err
 	}
-	if err := os.WriteFile(filename+".diff.txt", []byte(pair.UnifiedDiff()), fs.ModePerm); err != nil {
-		return err
+
+	if r.Unidiff {
+		log.Printf("Unified Diff %s", filename)
+		unifiedDiff := fmt.Sprint(pair.UnifiedDiff())
+		if unifiedDiff == "" {
+			unifiedDiff = "NONE"
+		}
+		if err := r.emitDiffHtml(filename+".diff.html", unifiedDiff); err != nil {
+			return err
+		}
 	}
-	if err := os.WriteFile(filename+".cmp.txt", []byte(pair.Diff()), fs.ModePerm); err != nil {
-		return err
+	if r.Cmpdiff {
+		log.Printf("Cmp Diff %s", filename)
+		cmpDiff := pair.Diff()
+		if cmpDiff == "" {
+			cmpDiff = "NONE"
+		}
+		if err := r.emitCmpHtml(filename+".cmp.html", cmpDiff); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -135,15 +158,52 @@ func (r *Html) emitIndexHtml(dir string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("Rendering html: %s", filename)
+
 	return r.renderIndexHtml(out)
 }
 
 func (r *Html) emitStyleCss(dir string) error {
 	filename := filepath.Join(dir, "style.css")
+	log.Printf("Rendering css: %s", filename)
 	return ioutil.WriteFile(filename, styleCss, os.ModePerm)
 }
 
 func (r *Html) renderIndexHtml(out io.Writer) error {
 	tmpl := template.Must(template.New("index.html.tmpl").ParseFS(indexHtmlFs, "index.html.tmpl"))
 	return tmpl.Execute(out, r)
+}
+
+type diffData struct {
+	Content string
+}
+
+func (r *Html) emitDiffHtml(filename string, content string) error {
+	out, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	data := diffData{
+		Content: content,
+	}
+
+	tmpl := template.Must(template.New("diff.html.tmpl").ParseFS(diffHtmlFs, "diff.html.tmpl"))
+	return tmpl.Execute(out, data)
+}
+
+func (r *Html) emitCmpHtml(filename string, content string) error {
+	out, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
+	data := diffData{
+		Content: content,
+	}
+
+	tmpl := template.Must(template.New("cmp.html.tmpl").ParseFS(cmpHtmlFs, "cmp.html.tmpl"))
+	return tmpl.Execute(out, data)
 }

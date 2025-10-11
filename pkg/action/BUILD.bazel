@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "action",
@@ -11,15 +11,18 @@ go_library(
     importpath = "github.com/stackb/bazel-aquery-differ/pkg/action",
     visibility = ["//visibility:public"],
     deps = [
-        "//build/stack/bazel/aquery/differ:differ_go_proto",
+        "//build/stack/bazel/aquery/differ",
         "//pkg/artifact",
         "//pkg/depset",
         "//pkg/protobuf",
         "//pkg/target",
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",
-        "@com_github_google_go_cmp//cmp",
-        "@com_github_google_go_cmp//cmp/cmpopts",
-        "@com_github_pmezard_go_difflib//difflib",
+        "@com_github_google_go_cmp//cmp:go_default_library",
+        "@com_github_google_go_cmp//cmp/cmpopts:go_default_library",
+        "@com_github_hexops_gotextdiff//:go_default_library",
+        "@com_github_hexops_gotextdiff//myers:go_default_library",
+        "@com_github_hexops_gotextdiff//span:go_default_library",
+        "@org_golang_google_protobuf//proto:go_default_library",
     ],
 )
 
@@ -28,7 +31,7 @@ go_test(
     srcs = ["output_pair_test.go"],
     embed = [":action"],
     deps = [
-        "//build/stack/bazel/aquery/differ:differ_go_proto",
-        "@com_github_google_go_cmp//cmp",
+        "//build/stack/bazel/aquery/differ",
+        "@com_github_google_go_cmp//cmp:go_default_library",
     ],
 )
