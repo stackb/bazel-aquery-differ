@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "artifact",
     srcs = ["path_map.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/artifact",
+    importpath = "github.com/stackb/bazel_difftools/pkg/artifact",
     visibility = ["//visibility:public"],
     deps = [
         "//pkg/pathfragment",

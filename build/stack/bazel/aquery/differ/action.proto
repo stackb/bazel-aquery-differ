@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package build.stack.bazel.aquery.differ;
 
-option go_package = "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ";
+option go_package = "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ";
 
 import "src/main/protobuf/analysis_v2.proto";
 

@@ -6,7 +6,7 @@ go_library(
         "map.go",
         "resolver.go",
     ],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/depset",
+    importpath = "github.com/stackb/bazel_difftools/pkg/depset",
     visibility = ["//visibility:public"],
     deps = [
         "//pkg/artifact",

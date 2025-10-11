@@ -1,5 +1,5 @@
 module(
-    name = "bazel-aquery-differ",
+    name = "bazel_difftools",
     version = "0.0.0",
 )
 

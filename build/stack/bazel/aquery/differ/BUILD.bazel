@@ -19,7 +19,7 @@ proto_compiled_sources(
         "Msrc/main/protobuf/build.proto=github.com/bazelbuild/bazelapis/src/main/protobuf/build",
         "Msrc/main/protobuf/stardoc_output.proto=github.com/bazelbuild/bazel/src/main/protobuf/stardoc_output",
     ]},
-    output_mappings = ["action.pb.go=github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ/action.pb.go"],
+    output_mappings = ["action.pb.go=github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ/action.pb.go"],
     plugins = ["@build_stack_rules_proto//plugin/golang/protobuf:protoc-gen-go"],
     proto = "differ_proto",
     visibility = ["//visibility:public"],
@@ -28,7 +28,7 @@ proto_compiled_sources(
 go_library(
     name = "differ",
     srcs = ["action.pb.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ",
+    importpath = "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ",
     visibility = ["//visibility:public"],
     deps = [
         "@bazelapis//src/main/protobuf:analysis_v2_go_proto",

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
+	dipb "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ"
 )
 
 // SkipTestOutputPairUnifiedDiff is diabled as the whitespace between mac and

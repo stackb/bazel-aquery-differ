@@ -13,7 +13,7 @@ go_library(
         "cmp.html.tmpl",
         "style.css",
     ],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/report",
+    importpath = "github.com/stackb/bazel_difftools/pkg/report",
     visibility = ["//visibility:public"],
     deps = [
         "//build/stack/bazel/aquery/differ",

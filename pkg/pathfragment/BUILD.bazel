@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "pathfragment",
     srcs = ["resolver.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/pathfragment",
+    importpath = "github.com/stackb/bazel_difftools/pkg/pathfragment",
     visibility = ["//visibility:public"],
     deps = ["@bazelapis//src/main/protobuf:analysis_v2_go_proto"],
 )

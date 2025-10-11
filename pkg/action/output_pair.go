@@ -9,8 +9,8 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	anpb "github.com/bazelbuild/bazelapis/src/main/protobuf/analysis_v2"
-	dipb "github.com/stackb/bazel-aquery-differ/build/stack/bazel/aquery/differ"
-	"github.com/stackb/bazel-aquery-differ/pkg/protobuf"
+	dipb "github.com/stackb/bazel_difftools/build/stack/bazel/aquery/differ"
+	"github.com/stackb/bazel_difftools/pkg/protobuf"
 )
 
 type OutputPair struct {

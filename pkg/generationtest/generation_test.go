@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/bazelbuild/rules_go/go/tools/bazel"
-	"github.com/stackb/bazel-aquery-differ/pkg/testtools"
+	"github.com/stackb/bazel_difftools/pkg/testtools"
 )
 
 var (

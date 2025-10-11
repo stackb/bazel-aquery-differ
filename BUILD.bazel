@@ -10,7 +10,7 @@ load("@gazelle//:def.bzl", "gazelle_binary")
 # gazelle:resolve go go github.com/stackb/rules_proto/pkg/protoc @build_stack_rules_proto//pkg/protoc
 
 # -- Gazelle language "go" ---
-# gazelle:prefix github.com/stackb/bazel-aquery-differ
+# gazelle:prefix github.com/stackb/bazel_difftools
 # gazelle:go_generate_proto false
 
 # -- Gazelle language "protobuf" ---

@@ -1,6 +1,6 @@
-[![CI](https://github.com/stackb/bazel-aquery-differ/actions/workflows/ci.yaml/badge.svg)](https://github.com/stackb/bazel-aquery-differ/actions/workflows/ci.yaml)
+[![CI](https://github.com/stackb/bazel_difftools/actions/workflows/ci.yaml/badge.svg)](https://github.com/stackb/bazel_difftools/actions/workflows/ci.yaml)
 
-# bazel-aquery-differ
+# bazel_difftools
 
 A tool to compare Bazel action query outputs with an interactive HTML report.
 This is a re-imagination of the [Bazel
@@ -22,7 +22,7 @@ in Go with enhanced visualization features.
 Add to your `MODULE.bazel`:
 
 ```starlark
-bazel_dep(name = "bazel-aquery-differ", version = "0.0.0")
+bazel_dep(name = "bazel_difftools", version = "0.0.0")
 ```
 
 > **Note**: This module is not yet published to the Bazel Central Registry. For
@@ -33,8 +33,8 @@ bazel_dep(name = "bazel-aquery-differ", version = "0.0.0")
 Download a release artifact, or build from source:
 
 ```bash
-git clone https://github.com/stackb/bazel-aquery-differ.git
-cd bazel-aquery-differ
+git clone https://github.com/stackb/bazel_difftools.git
+cd bazel_difftools
 bazel build //cmd/aquerydiff
 ```
 
@@ -45,7 +45,7 @@ bazel build //cmd/aquerydiff
 Load the rules in your `BUILD.bazel` file:
 
 ```starlark
-load("@bazel-aquery-differ//rules:defs.bzl", "aquery_diff", "aquery_git_diff")
+load("@bazel_difftools//rules:defs.bzl", "aquery_diff", "aquery_git_diff")
 ```
 
 #### Rule: `aquery_diff`

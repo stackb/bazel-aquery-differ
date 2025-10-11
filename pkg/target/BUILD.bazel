@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "target",
     srcs = ["map.go"],
-    importpath = "github.com/stackb/bazel-aquery-differ/pkg/target",
+    importpath = "github.com/stackb/bazel_difftools/pkg/target",
     visibility = ["//visibility:public"],
     deps = ["@bazelapis//src/main/protobuf:analysis_v2_go_proto"],
 )
