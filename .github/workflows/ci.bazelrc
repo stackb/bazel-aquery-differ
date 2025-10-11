@@ -8,6 +8,7 @@ test --test_output=errors
 # This directory is configured in GitHub actions to be persisted between runs.
 build --disk_cache=$HOME/.cache/bazel
 build --repository_cache=$HOME/.cache/bazel-repo
+build --repo_contents_cache=
 
 # Allows tests to run bazelisk-in-bazel, since this is the cache folder used
 test --test_env=XDG_CACHE_HOME
