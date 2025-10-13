@@ -1,0 +1,2 @@
+# C++17 for absl / protobuf
+build --host_cxxopt=-std=c++17 --cxxopt=-std=c++17
